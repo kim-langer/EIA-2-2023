@@ -4,10 +4,11 @@ var randompoem;
     let subjects = ["Hans", "Peter", "Ron", "Philipp", "Kurt", "Herbert"];
     let predicates = ["fliegt", "ruft", "liebt", "baut", "mixt", "analysiert"];
     let objects = ["Harry", "den Garten", "Zwerge", "Gurken", "Tomaten", "die Nachbarn"];
-    for (var i = 1; i < 10; i++) {
+    /* Schleife, die die Arrays durchläuft*/
+    for (let i = subjects.length; i >= 1; i--) {
+        console.log(i);
     }
-    console.log(subjects);
-    console.log(predicates);
-    console.log(objects);
+    function getverse() {
+    }
 })(randompoem || (randompoem = {}));
 //# sourceMappingURL=randompoem.js.map

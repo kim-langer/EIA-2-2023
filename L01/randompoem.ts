@@ -6,13 +6,14 @@ namespace randompoem {
     let predicates: string[] = ["fliegt", "ruft", "liebt", "baut", "mixt", "analysiert"]
     let objects: string[] = ["Harry", "den Garten", "Zwerge", "Gurken", "Tomaten", "die Nachbarn"]
 
+/* Schleife, die die Arrays durchläuft*/
+for (let i = subjects.length; i >= 1; i--) {
+    console.log(i);
+}
 
-for (var i = 1; i<10 ; i++) {
+function getverse () {
 
 }
 
-console.log (subjects)
-console.log (predicates)
-console.log (objects)
-
 }
+
