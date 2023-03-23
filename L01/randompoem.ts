@@ -7,8 +7,8 @@ namespace randompoem {
     let objects: string[] = ["Harry", "den Garten", "Zwerge", "Gurken", "Tomaten", "die Nachbarn"]
 
 /* Schleife, die die Arrays durchläuft*/
-for (let i = subjects.length; i >= 1; i--) {
-    
+for (let i = 6; i >= 1; i--) {
+    console.log(i)
 }
 
 function getverse (_subjects:string, _predicates:string, _objects:string) {
