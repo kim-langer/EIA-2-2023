@@ -8,12 +8,12 @@ namespace randompoem {
 
 /* Schleife, die die Arrays durchläuft*/
 for (let i = subjects.length; i >= 1; i--) {
-    console.log(i);
+    
 }
 
-function getverse () {
-
-}
+function getverse (_subjects:string, _predicates:string, _objects:string) {
+return 
+};
 
 }
 

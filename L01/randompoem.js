@@ -6,9 +6,10 @@ var randompoem;
     let objects = ["Harry", "den Garten", "Zwerge", "Gurken", "Tomaten", "die Nachbarn"];
     /* Schleife, die die Arrays durchläuft*/
     for (let i = subjects.length; i >= 1; i--) {
-        console.log(i);
     }
-    function getverse() {
+    function getverse(_subjects, _predicates, _objects) {
+        return;
     }
+    ;
 })(randompoem || (randompoem = {}));
 //# sourceMappingURL=randompoem.js.map
