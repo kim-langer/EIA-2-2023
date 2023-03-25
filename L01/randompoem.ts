@@ -30,6 +30,6 @@ function getVerse(_subjects: string[], _predicates: string[], _objects: string[]
     newverse += randomObject;
 
     return newverse;
-}
+} 
 }
 
