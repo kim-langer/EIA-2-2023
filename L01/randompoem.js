@@ -8,9 +8,14 @@ var randompoem;
     for (let i = 6; i >= 1; i--) {
         console.log(i);
     }
-    function getverse(_subjects, _predicates, _objects) {
-        return;
+    function getVerse(_subjects, _predicates, _objects) {
+        const subjectIndex = Math.floor(Math.random() * _subjects.length);
+        const predicateIndex = Math.floor(Math.random() * _predicates.length);
+        const objectIndex = Math.floor(Math.random() * _objects.length);
+        const subject = _subjects[subjectIndex];
+        const predicate = _predicates[predicateIndex];
+        const object = _objects[objectIndex];
+        return `${subject} ${predicate} ${object}.`;
     }
-    ;
 })(randompoem || (randompoem = {}));
 //# sourceMappingURL=randompoem.js.map
