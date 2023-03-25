@@ -8,21 +8,30 @@ namespace randompoem {
 
 /* Schleife, die die Arrays durchläuft*/
 for (let i = 6; i >= 1; i--) {
-    console.log(i)
+    let verse: string = getVerse(subjects, predicates, objects);
+    console.log(verse);
 }
 
-function getVerse(_subjects: string[], _predicates: string[], _objects: string[]) {
-    const subjectIndex = Math.floor(Math.random() * _subjects.length);
-    const predicateIndex = Math.floor(Math.random() * _predicates.length);
-    const objectIndex = Math.floor(Math.random() * _objects.length);
-    
-    const subject = _subjects[subjectIndex];
-    const predicate = _predicates[predicateIndex];
-    const object = _objects[objectIndex];
-    
-    return `${subject} ${predicate} ${object}.`;
-}
+/* Funktion für die Verse, um zufällige Werte auszuwählen*/
 
+function getVerse(_subjects: string[], _predicates: string[], _objects: string[]): string {
+    let verse: string = "";
+
+    // wählt jetzt zufällige Textbausteine aus
+    let randomSubjectIndex: number = Math.floor(Math.random() * _subjects.length);
+    let randomSubject: string = _subjects.splice(randomSubjectIndex, 1)[0];
+    verse += randomSubject + " ";
+
+    let randomPredicateIndex: number = Math.floor(Math.random() * _predicates.length);
+    let randomPredicate: string = _predicates.splice(randomPredicateIndex, 1)[0];
+    verse += randomPredicate + " ";
+
+    let randomObjectIndex: number = Math.floor(Math.random() * _objects.length);
+    let randomObject: string = _objects.splice(randomObjectIndex, 1)[0];
+    verse += randomObject;
+
+    return verse;
+}
 
 }
 
