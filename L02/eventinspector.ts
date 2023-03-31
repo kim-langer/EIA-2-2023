@@ -6,9 +6,6 @@ Matrikelnummer: 27174
 //Die Seite soll erst vollständig geladen werden//
 window.addEventListener('load', function () {
 
-  //globale Variablen//
-  let infobox = document.getElementById("thespan") as HTMLSpanElement;
-
   //Die Funktion, die auf Aktiviäten auf der Seite hört//
   function handleload() {
     document.addEventListener("mousemove", setinfoBox);
@@ -51,5 +48,17 @@ window.addEventListener('load', function () {
   };
 
   handleload();
+
+//Custom Event bei Klick auf den Button//
+  let button = document.querySelector("buttonstyle") as HTMLButtonElement;
+
+  button.addEventListener("click", () => {
+    const event = new CustomEvent("mynewCustomEvent", { bubbles: true });
+    document.dispatchEvent(event);
+  });
+
+  document.addEventListener("mynewCustomEvent", (event) => {
+    console.log("Custom Event scheint zu funktionieren:", event);
+  });
 
 });
