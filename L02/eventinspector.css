@@ -1,10 +1,11 @@
-.spanelement {
-position: fixed;
-background-color: antiquewhite;
-width: 200px;
-height: 100x;
-margin-top: 500px;
-margin-bottom: 0px;
+#thespan {
+background-color: rgb(232, 133, 3);
+display: block;
+width: 300px;
+height: 50px;
+border-radius: 5px;
+font-family: Verdana, Geneva, Tahoma, sans-serif;
+font-size: small;
 }
 
 #heading {
