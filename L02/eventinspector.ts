@@ -1,6 +1,6 @@
 /*Aufgabe: L02
 Name: Kim Langer
-Matrikelnummer: 27174
+Matrikelnummer: 272232
 */
 
 //Die Seite soll erst vollständig geladen werden//
@@ -47,10 +47,11 @@ window.addEventListener('load', function () {
 
   };
 
+    //handleload wird aufgerufen//
   handleload();
 
 //Custom Event bei Klick auf den Button//
-  let button = document.querySelector("buttonstyle") as HTMLButtonElement;
+  let button = document.querySelector(".buttonstyle") as HTMLButtonElement;
 
   button.addEventListener("click", () => {
     const event = new CustomEvent("mynewCustomEvent", { bubbles: true });
