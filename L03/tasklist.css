@@ -1,4 +1,4 @@
-/* Darstellung als App fürs Smartphone */
+/* Darstellung in App-Größe fürs Smartphone */
 
 body {
     text-align: center;
@@ -25,7 +25,9 @@ body {
     position: relative;
 }
 
-#newtask {
+/* Buttonstyles */
+
+#PopupButton {
     background-color: hsl(85, 23%, 38%);
     top: 30px;
     border: none;
@@ -48,7 +50,23 @@ body {
     background-color: hsl(84, 45%, 38%);
 }
 
-.divstyle {
+#submitbutton {
+    background-color: hsl(25, 55%, 57%);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    size: 60px;
+    padding: 4px 5px;
+    text-align: center;
+    font-size: 12px;
+    margin-top: 10px;
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: 600;
+}
 
+/* Die Div Boxen für die Aufgabensortierung */
+
+.divstyle {
     margin-top: 70px;
 }
