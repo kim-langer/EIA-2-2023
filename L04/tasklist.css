@@ -4,25 +4,20 @@ body {
     text-align: center;
     font-family: "Montserrat", sans-serif;
     color: white;
-    background-color: black;
-}
-
-#wrapper {
-    width: 390px;
-    height: 680px;
     background: radial-gradient(circle, rgb(154, 212, 149), rgb(85, 156, 86));
-    text-align: center;
-    margin: 0 auto;
-    position: relative;
 }
 
 /* Überschriften und Texte */
 
 .starttext {
-    top: 40px;
-    margin-left: 3px;
-    size: 20px;
+    top: 30px;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 35px;
     position: relative;
+}
+
+h3 {
+    font-size: 23px;
 }
 
 /* Buttonstyles */
@@ -37,17 +32,17 @@ body {
     padding: 4px 5px;
     position: relative;
     text-align: center;
-    font-size: 10px;
+    font-size: 15px;
     margin-top: 10px;
     transition: 0.3s;
-    width: 50%;
+    width: 20%;
     text-decoration: none;
     cursor: pointer;
     font-weight: 600;
 }
 
-#newtask:hover {
-    background-color: hsl(84, 45%, 38%);
+#PopupButton:hover {
+    background-color: hsl(84, 45%, 35%);
 }
 
 #submitbutton {
@@ -68,8 +63,14 @@ body {
 /* Die Div Boxen für die Aufgabensortierung */
 
 .divstyle {
-    margin-top: 70px;
+    margin-top: 50px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
+
+
+.task       {  background-color: #54935d;
+border-radius: 5px;
+padding: 10px;
+margin-bottom: 10px;}

@@ -1,4 +1,4 @@
-/*Aufgabe: L03
+/*Aufgabe: L04
 Name: Kim Langer
 Matrikelnummer: 272232
 */
@@ -40,7 +40,7 @@ popupHTML += '<label for="inProgress">in Bearbeitung</label><br>'; // Ist die Au
   popupContainer.style.top = '300px';
   popupContainer.style.left = '50%';
   popupContainer.style.transform = 'translate(-50%, -50%)';
-  popupContainer.style.backgroundColor = '#4c9141';
+  popupContainer.style.backgroundColor = '#54935d';
   popupContainer.style.padding = '20px';
   popupContainer.style.border = '1px solid #fff';
 

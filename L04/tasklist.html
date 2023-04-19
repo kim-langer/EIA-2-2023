@@ -20,18 +20,33 @@
             <button id="PopupButton"><p>Neue Aufgabe hinzufügen</p></button>
             <div class="divstyle" id="div1">
                 <h3>ausstehende Aufgaben</h3>
-                <ul id="open-tasks">
-                </ul>
+                <div class="open-tasks" class="task">
+                    <form>
+                        <label for="task1">Aufgabe:</label>
+                        <input type="text" id="task1" name="task1">
+                        <br>
+                        <label for="deadline1">Deadline:</label>
+                        <input type="date" id="deadline1" name="deadline1">
+                        <br>
+                        <select id="assignee" name="assignee">';
+                            <option value="">Bitte auswählen</option>';
+                            <option value="person1">Max</option>';
+                            <option value="person2">Mike</option>';
+                            <option value="person3">Anna</option>';
+                            </select><br>
+                        <br>
+                    </form>
+                </div>
             </div>
             <div class="divstyle" id="div2">
                 <h3>in Bearbeitung</h3>
-                <ul id="in-progress-tasks">
-                </ul>
+                <div class="in-progress-tasks">
+                </div>
             </div>
             <div class="divstyle" id="div3">
                 <h3>Frist abgelaufen</h3>
-                <ul id="expired-tasks">
-                </ul>
+                <div class="expired-tasks">
+                </div>
             </div>
 
             
