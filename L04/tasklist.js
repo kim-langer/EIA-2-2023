@@ -44,27 +44,7 @@ var L04;
         inputFields.forEach((field) => {
             field.style.marginBottom = '20px';
         });
-        document.getElementById('submitbutton').addEventListener('click', addTask);
     }
     ;
-    // Code zur Verarbeitung des Formulars
-    function addTask(event) {
-        // Formular-Standardverhalten verhindern
-        event.preventDefault();
-        // Die Werte der Formularfelder auslesen
-        const taskName = document.getElementById('taskname').value;
-        const comment = document.getElementById('comment').value;
-        const assignee = document.getElementById('assignee').value;
-        const deadline = document.getElementById('deadline').value;
-        const inProgress = document.getElementById('inProgress').checked;
-        // Das Pop-Up-Fenster ausblenden
-        const popup = document.getElementById('popup');
-        popup.style.display = 'none';
-        // Die neue Aufgabe zur entsprechenden Kategorie hinzufügen
-        const taskList = inProgress ? document.getElementById('in-progress-tasks') : document.getElementById('open-tasks');
-        const newTask = document.createElement('li');
-        newTask.textContent = taskName;
-        taskList.appendChild(newTask);
-    }
 })(L04 || (L04 = {}));
 //# sourceMappingURL=tasklist.js.map

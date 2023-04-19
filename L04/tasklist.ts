@@ -49,33 +49,7 @@ popupHTML += '<label for="inProgress">in Bearbeitung</label><br>'; // Ist die Au
   inputFields.forEach((field: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement) => {
     field.style.marginBottom = '20px';
   });
-
-  document.getElementById('submitbutton').addEventListener('click', addTask);
 };
-
-
-// Code zur Verarbeitung des Formulars
-function addTask(event: Event): void {
-  // Formular-Standardverhalten verhindern
-  event.preventDefault();
-
-  // Die Werte der Formularfelder auslesen
-  const taskName: string = (<HTMLInputElement>document.getElementById('taskname')).value;
-  const comment: string = (<HTMLTextAreaElement>document.getElementById('comment')).value;
-  const assignee: string = (<HTMLSelectElement>document.getElementById('assignee')).value;
-  const deadline: string = (<HTMLInputElement>document.getElementById('deadline')).value;
-  const inProgress: boolean = (<HTMLInputElement>document.getElementById('inProgress')).checked;
-
-  // Das Pop-Up-Fenster ausblenden
-  const popup: HTMLElement = document.getElementById('popup');
-  popup.style.display = 'none';
-
-  // Die neue Aufgabe zur entsprechenden Kategorie hinzufügen
-  const taskList: HTMLUListElement = inProgress ? <HTMLUListElement>document.getElementById('in-progress-tasks') : <HTMLUListElement>document.getElementById('open-tasks');
-  const newTask: HTMLLIElement = document.createElement('li');
-  newTask.textContent = taskName;
-  taskList.appendChild(newTask);
-}
 
 
 }
