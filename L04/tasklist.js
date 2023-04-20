@@ -49,32 +49,32 @@ var L04;
     ;
     let data = { Input: [] };
     // Neue Aufgabe erstellen und Hinzufügen zum HTML //
-    function createTaskElement(task) {
+    function createTaskElement(_task) {
         let taskDiv = document.createElement('div');
         taskDiv.classList.add('task');
         let tasknameInput = document.createElement('input');
         tasknameInput.type = 'text';
-        tasknameInput.value = task.taskname;
+        tasknameInput.value = _task.taskname;
         tasknameInput.classList.add('style-input');
         let commentInput = document.createElement('textarea');
-        commentInput.value = task.comment;
+        commentInput.value = _task.comment;
         let responsibleInput = document.createElement('select');
         responsibleInput.innerHTML = `
       <option value="person1">Max</option>
       <option value="person2">Mike</option>
       <option value="person3">Anna</option>
     `;
-        responsibleInput.value = task.responsible;
+        responsibleInput.value = _task.responsible;
         let deadlineInput = document.createElement('input');
         deadlineInput.type = 'date';
-        deadlineInput.value = task.deadline;
+        deadlineInput.value = _task.deadline;
         let inProgressInput = document.createElement('input');
         inProgressInput.type = 'checkbox';
-        inProgressInput.checked = task.status;
+        inProgressInput.checked = _task.status;
         let deleteButton = document.createElement('button');
         deleteButton.textContent = 'Löschen';
         deleteButton.addEventListener('click', () => {
-            deleteTask(task, taskDiv);
+            deleteTask(_task, taskDiv);
         });
         taskDiv.appendChild(document.createElement('h4')).appendChild(tasknameInput);
         taskDiv.appendChild(document.createElement('p')).textContent = `Zuständige Person: `;
@@ -85,7 +85,7 @@ var L04;
         taskDiv.appendChild(document.createElement('label')).textContent = 'wird bereits erledigt';
         taskDiv.appendChild(document.createElement('p')).appendChild(commentInput);
         taskDiv.appendChild(deleteButton);
-        if (task.status) {
+        if (_task.status) {
             document.querySelector('.in-progress-tasks').appendChild(taskDiv);
         }
         else {
@@ -95,8 +95,8 @@ var L04;
         inProgressInput.addEventListener('change', moveTaskToInProgress);
         return taskDiv;
     }
-    function addTask(event) {
-        event.preventDefault();
+    function addTask(_event) {
+        _event.preventDefault();
         let tasknameInput = document.querySelector('#taskname');
         let commentInput = document.querySelector('#comment');
         let responsibleInput = document.querySelector('#responsible');
@@ -118,8 +118,8 @@ var L04;
     }
     ;
     // Funktion für das Klicken der Checkbox//
-    function moveTaskToInProgress(event) {
-        let checkbox = event.target;
+    function moveTaskToInProgress(_event) {
+        let checkbox = _event.target;
         let taskDiv = checkbox.closest('.task');
         if (checkbox.checked) {
             document.querySelector('.in-progress-tasks').appendChild(taskDiv);
@@ -129,11 +129,11 @@ var L04;
         }
     }
     // Aufgaben wieder löschen//
-    function deleteTask(task, taskElement) {
-        let index = data.Input.findIndex((t) => t === task);
+    function deleteTask(_task, _taskElement) {
+        let index = data.Input.findIndex((t) => t === _task);
         if (index !== -1) {
             data.Input.splice(index, 1);
-            taskElement.remove();
+            _taskElement.remove();
         }
     }
 })(L04 || (L04 = {}));

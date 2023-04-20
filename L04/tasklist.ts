@@ -57,17 +57,17 @@ namespace L04 {
 let data = { Input: [] };
 
   // Neue Aufgabe erstellen und Hinzufügen zum HTML //
-  function createTaskElement(task: Task): HTMLElement {
+  function createTaskElement(_task: Task): HTMLElement {
     let taskDiv: HTMLDivElement = document.createElement('div');
     taskDiv.classList.add('task');
 
     let tasknameInput: HTMLInputElement = document.createElement('input');
     tasknameInput.type = 'text';
-    tasknameInput.value = task.taskname;
+    tasknameInput.value = _task.taskname;
     tasknameInput.classList.add('style-input');
 
     let commentInput: HTMLTextAreaElement = document.createElement('textarea');
-    commentInput.value = task.comment;
+    commentInput.value = _task.comment;
 
     let responsibleInput: HTMLSelectElement = document.createElement('select');
     responsibleInput.innerHTML = `
@@ -75,20 +75,20 @@ let data = { Input: [] };
       <option value="person2">Mike</option>
       <option value="person3">Anna</option>
     `;
-    responsibleInput.value = task.responsible;
+    responsibleInput.value = _task.responsible;
 
     let deadlineInput: HTMLInputElement = document.createElement('input');
     deadlineInput.type = 'date';
-    deadlineInput.value = task.deadline;
+    deadlineInput.value = _task.deadline;
 
     let inProgressInput: HTMLInputElement = document.createElement('input');
     inProgressInput.type = 'checkbox';
-    inProgressInput.checked = task.status;
+    inProgressInput.checked = _task.status;
 
     let deleteButton: HTMLButtonElement = document.createElement('button');
     deleteButton.textContent = 'Löschen';
     deleteButton.addEventListener('click', () => {
-    deleteTask(task, taskDiv);
+    deleteTask(_task, taskDiv);
   });
 
     taskDiv.appendChild(document.createElement('h4')).appendChild(tasknameInput);
@@ -101,7 +101,7 @@ let data = { Input: [] };
     taskDiv.appendChild(document.createElement('p')).appendChild(commentInput);
     taskDiv.appendChild(deleteButton);
 
-    if (task.status) {
+    if (_task.status) {
       document.querySelector('.in-progress-tasks').appendChild(taskDiv);
     } else {
       document.querySelector('.open-tasks').appendChild(taskDiv);
@@ -114,8 +114,8 @@ let data = { Input: [] };
   }
 
 
-  function addTask(event: Event): void {
-    event.preventDefault();
+  function addTask(_event: Event): void {
+    _event.preventDefault();
 
     let tasknameInput: HTMLInputElement = document.querySelector('#taskname');
     let commentInput: HTMLTextAreaElement = document.querySelector('#comment');
@@ -143,8 +143,8 @@ let data = { Input: [] };
   };
 
   // Funktion für das Klicken der Checkbox//
-  function moveTaskToInProgress(event: Event): void {
-    let checkbox: HTMLInputElement = event.target as HTMLInputElement;
+  function moveTaskToInProgress(_event: Event): void {
+    let checkbox: HTMLInputElement = _event.target as HTMLInputElement;
     let taskDiv: HTMLDivElement = checkbox.closest('.task') as HTMLDivElement;
 
     if (checkbox.checked) {
@@ -155,11 +155,11 @@ let data = { Input: [] };
   }
 
   // Aufgaben wieder löschen//
-  function deleteTask(task: Task, taskElement: HTMLElement): void {
-    let index = data.Input.findIndex((t: Task) => t === task);
+  function deleteTask(_task: Task, _taskElement: HTMLElement): void {
+    let index = data.Input.findIndex((t: Task) => t === _task);
     if (index !== -1) {
       data.Input.splice(index, 1);
-      taskElement.remove();
+      _taskElement.remove();
     }
   }
 
