@@ -1,6 +1,7 @@
 /*Aufgabe: L04
 Name: Kim Langer
 Matrikelnummer: 272232
+Quellen: EIA 1 Aufgaben, ChatGPT
 */
 
 namespace L04 {
@@ -12,7 +13,6 @@ namespace L04 {
     let popupHTML: string = '<div id="popup">';
     popupHTML += '<h3>Erstelle eine neue Aufgabe</h3>';
     popupHTML += '<form>';
-    popupHTML += '<label for="text">Aufgabe:</label>';
     popupHTML += '<input type="text" id="taskname" name="name" placeholder="Beschreibe deine Aufgabe"><br>';
     popupHTML += '<textarea id="comment" name="comment" placeholder="Gibts noch was anzumerken?"></textarea><br>'; // textarea für Kommentare
     popupHTML += '<label for="assignee">Zuständige Person:</label>';
@@ -32,7 +32,7 @@ namespace L04 {
 
 
     // Hinzufügen des Pop-Up-Fensters zum DOM //
-    const popupContainer: HTMLElement = document.createElement('div');
+    let popupContainer: HTMLElement = document.createElement('div');
     popupContainer.innerHTML = popupHTML;
     document.body.appendChild(popupContainer);
 
@@ -46,7 +46,7 @@ namespace L04 {
     popupContainer.style.border = '1px solid #fff';
 
     // Hinzufügen von mehr Abstand zwischen den Eingabefeldern //
-    const inputFields: NodeListOf<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement> = popupContainer.querySelectorAll('input, textarea, select');
+    let inputFields: NodeListOf<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement> = popupContainer.querySelectorAll('input, textarea, select');
     inputFields.forEach((field: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement) => {
       field.style.marginBottom = '20px';
     });
@@ -54,49 +54,113 @@ namespace L04 {
     document.querySelector('#submitbutton').addEventListener('click', addTask);
   };
 
-  const data = { Input: [] };
+let data = { Input: [] };
+
+  // Neue Aufgabe erstellen und Hinzufügen zum HTML //
+  function createTaskElement(task: Task): HTMLElement {
+    let taskDiv: HTMLDivElement = document.createElement('div');
+    taskDiv.classList.add('task');
+
+    let tasknameInput: HTMLInputElement = document.createElement('input');
+    tasknameInput.type = 'text';
+    tasknameInput.value = task.taskname;
+    tasknameInput.classList.add('style-input');
+
+    let commentInput: HTMLTextAreaElement = document.createElement('textarea');
+    commentInput.value = task.comment;
+
+    let responsibleInput: HTMLSelectElement = document.createElement('select');
+    responsibleInput.innerHTML = `
+      <option value="person1">Max</option>
+      <option value="person2">Mike</option>
+      <option value="person3">Anna</option>
+    `;
+    responsibleInput.value = task.responsible;
+
+    let deadlineInput: HTMLInputElement = document.createElement('input');
+    deadlineInput.type = 'date';
+    deadlineInput.value = task.deadline;
+
+    let inProgressInput: HTMLInputElement = document.createElement('input');
+    inProgressInput.type = 'checkbox';
+    inProgressInput.checked = task.status;
+
+    let deleteButton: HTMLButtonElement = document.createElement('button');
+    deleteButton.textContent = 'Löschen';
+    deleteButton.addEventListener('click', () => {
+    deleteTask(task, taskDiv);
+  });
+
+    taskDiv.appendChild(document.createElement('h4')).appendChild(tasknameInput);
+    taskDiv.appendChild(document.createElement('p')).textContent = `Zuständige Person: `;
+    taskDiv.lastChild.appendChild(responsibleInput);
+    taskDiv.appendChild(document.createElement('p')).textContent = 'Deadline: ';
+    taskDiv.lastChild.appendChild(deadlineInput);
+    taskDiv.appendChild(inProgressInput);
+    taskDiv.appendChild(document.createElement('label')).textContent = 'wird bereits erledigt';
+    taskDiv.appendChild(document.createElement('p')).appendChild(commentInput);
+    taskDiv.appendChild(deleteButton);
+
+    if (task.status) {
+      document.querySelector('.in-progress-tasks').appendChild(taskDiv);
+    } else {
+      document.querySelector('.open-tasks').appendChild(taskDiv);
+    }
+
+    // Event-Listener für das Klicken der Checkbox und das es in den richtigen Bereich geschoben wird //
+    inProgressInput.addEventListener('change', moveTaskToInProgress);
+
+    return taskDiv;
+  }
+
 
   function addTask(event: Event): void {
-    event.preventDefault(); 
+    event.preventDefault();
+
+    let tasknameInput: HTMLInputElement = document.querySelector('#taskname');
+    let commentInput: HTMLTextAreaElement = document.querySelector('#comment');
+    let responsibleInput: HTMLSelectElement = document.querySelector('#responsible');
+    let deadlineInput: HTMLInputElement = document.querySelector('#deadline');
+    let inProgressInput: HTMLInputElement = document.querySelector('#inProgress');
     
-    const tasknameInput: HTMLInputElement = document.querySelector('#taskname');
-    const commentInput: HTMLTextAreaElement = document.querySelector('#comment');
-    const responsibleInput: HTMLSelectElement = document.querySelector('#responsible');
-    const deadlineInput: HTMLInputElement = document.querySelector('#deadline');
-    const inProgressInput: HTMLInputElement = document.querySelector('#inProgress');
-    
+
     // Neue Aufgabe erstellen mit den Werten aus dem PopUp
-    const newTask: Task = {
+    let newTask: Task = {
       taskname: tasknameInput.value,
       comment: commentInput.value,
       responsible: responsibleInput.value,
       deadline: deadlineInput.value,
       status: inProgressInput.checked
     };
-    
+
     // Aufgabe pushen
     data.Input.push(newTask);
-    
+
     // HTML updaten
-    const openTasksDiv: HTMLDivElement = document.querySelector('.open-tasks');
-    const taskDiv: HTMLDivElement = document.createElement('div');
-    taskDiv.classList.add('task');
-    taskDiv.innerHTML = `
-      <h4>${newTask.taskname}</h4>
-      <p>${newTask.comment}</p>
-      <ul>
-        <li>Zuständige Person: ${newTask.responsible}</li>
-        <li>Deadline: ${newTask.deadline}</li>
-      </ul>
-    `;
-    if (newTask.status) {
-      document.querySelector('.in-progress-tasks').appendChild(taskDiv);
-    } else {
-      openTasksDiv.appendChild(taskDiv);
-    }
+    createTaskElement(newTask);
 
     document.querySelector('#popup').remove();
-    
   };
-  
+
+  // Funktion für das Klicken der Checkbox//
+  function moveTaskToInProgress(event: Event): void {
+    let checkbox: HTMLInputElement = event.target as HTMLInputElement;
+    let taskDiv: HTMLDivElement = checkbox.closest('.task') as HTMLDivElement;
+
+    if (checkbox.checked) {
+      document.querySelector('.in-progress-tasks').appendChild(taskDiv);
+    } else {
+      document.querySelector('.open-tasks').appendChild(taskDiv);
+    }
   }
+
+  // Aufgaben wieder löschen//
+  function deleteTask(task: Task, taskElement: HTMLElement): void {
+    let index = data.Input.findIndex((t: Task) => t === task);
+    if (index !== -1) {
+      data.Input.splice(index, 1);
+      taskElement.remove();
+    }
+  }
+
+}
