@@ -1,9 +1,7 @@
-"use strict";
 /*Aufgabe: L04
 Name: Kim Langer
 Matrikelnummer: 272232
 */
-Object.defineProperty(exports, "__esModule", { value: true });
 var L04;
 (function (L04) {
     document.getElementById('PopupButton').addEventListener('click', openPopup);
@@ -46,6 +44,7 @@ var L04;
         inputFields.forEach((field) => {
             field.style.marginBottom = '20px';
         });
+        document.querySelector('#submitbutton').addEventListener('click', addTask);
     }
     ;
     const data = { Input: [] };
@@ -84,8 +83,8 @@ var L04;
         else {
             openTasksDiv.appendChild(taskDiv);
         }
+        document.querySelector('#popup').remove();
     }
     ;
-    document.querySelector('#submitbutton').addEventListener('click', addTask);
 })(L04 || (L04 = {}));
 //# sourceMappingURL=tasklist.js.map

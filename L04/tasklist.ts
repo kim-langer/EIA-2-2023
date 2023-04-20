@@ -3,8 +3,6 @@ Name: Kim Langer
 Matrikelnummer: 272232
 */
 
-import { Entries, Task } from "./data.js";
-
 namespace L04 {
 
   document.getElementById('PopupButton').addEventListener('click', openPopup);
@@ -52,6 +50,8 @@ namespace L04 {
     inputFields.forEach((field: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement) => {
       field.style.marginBottom = '20px';
     });
+
+    document.querySelector('#submitbutton').addEventListener('click', addTask);
   };
 
   const data = { Input: [] };
@@ -94,10 +94,9 @@ namespace L04 {
     } else {
       openTasksDiv.appendChild(taskDiv);
     }
+
+    document.querySelector('#popup').remove();
     
   };
   
-
-  document.querySelector('#submitbutton').addEventListener('click', addTask);
-
   }

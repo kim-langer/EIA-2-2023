@@ -1,4 +1,4 @@
-export interface Task {
+namespace L04 {export interface Task {
     taskname: string;
     comment: string;
     responsible: string;
@@ -16,5 +16,5 @@ export let data: Entries = {
         { taskname: "Wocheneinkauf erledigen", comment: "Einkaufliste bis Dienstag ausfüllen", responsible: "Max", deadline: "2023-04-23", status: false },
     ] 
 } 
-  
+}
   
