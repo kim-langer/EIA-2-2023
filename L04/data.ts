@@ -15,4 +15,6 @@ export let data: Entries = {
         { taskname: "Putzen", comment: "Jetzt aber flott", responsible: "Max", deadline: "2023-04-23", status: true },
         { taskname: "Wocheneinkauf erledigen", comment: "Einkaufliste bis Dienstag ausfüllen", responsible: "Max", deadline: "2023-04-23", status: false },
     ] 
-}
+} 
+  
+  

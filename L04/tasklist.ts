@@ -3,7 +3,7 @@ Name: Kim Langer
 Matrikelnummer: 272232
 */
 
-import { Entries, Task } from "./data";
+import { Entries, Task } from "./data.js";
 
 namespace L04 {
 
@@ -18,7 +18,7 @@ namespace L04 {
     popupHTML += '<input type="text" id="taskname" name="name" placeholder="Beschreibe deine Aufgabe"><br>';
     popupHTML += '<textarea id="comment" name="comment" placeholder="Gibts noch was anzumerken?"></textarea><br>'; // textarea für Kommentare
     popupHTML += '<label for="assignee">Zuständige Person:</label>';
-    popupHTML += '<select id="assignee" name="assignee">'; // zuständige Person auswählen per Dropdown-Menü
+    popupHTML += '<select id="responsible" name="responsible">'; // zuständige Person auswählen per Dropdown-Menü
     popupHTML += '<option value="">Bitte auswählen</option>';
     popupHTML += '<option value="person1">Max</option>';
     popupHTML += '<option value="person2">Mike</option>';
@@ -54,14 +54,50 @@ namespace L04 {
     });
   };
 
-  export function generateContent(_data: Entries) {
+  const data = { Input: [] };
 
-    for (let entry in _data) {
-      let items: Task = _data[entry]
+  function addTask(event: Event): void {
+    event.preventDefault(); 
+    
+    const tasknameInput: HTMLInputElement = document.querySelector('#taskname');
+    const commentInput: HTMLTextAreaElement = document.querySelector('#comment');
+    const responsibleInput: HTMLSelectElement = document.querySelector('#responsible');
+    const deadlineInput: HTMLInputElement = document.querySelector('#deadline');
+    const inProgressInput: HTMLInputElement = document.querySelector('#inProgress');
+    
+    // Neue Aufgabe erstellen mit den Werten aus dem PopUp
+    const newTask: Task = {
+      taskname: tasknameInput.value,
+      comment: commentInput.value,
+      responsible: responsibleInput.value,
+      deadline: deadlineInput.value,
+      status: inProgressInput.checked
+    };
+    
+    // Aufgabe pushen
+    data.Input.push(newTask);
+    
+    // HTML updaten
+    const openTasksDiv: HTMLDivElement = document.querySelector('.open-tasks');
+    const taskDiv: HTMLDivElement = document.createElement('div');
+    taskDiv.classList.add('task');
+    taskDiv.innerHTML = `
+      <h4>${newTask.taskname}</h4>
+      <p>${newTask.comment}</p>
+      <ul>
+        <li>Zuständige Person: ${newTask.responsible}</li>
+        <li>Deadline: ${newTask.deadline}</li>
+      </ul>
+    `;
+    if (newTask.status) {
+      document.querySelector('.in-progress-tasks').appendChild(taskDiv);
+    } else {
+      openTasksDiv.appendChild(taskDiv);
     }
-
+    
   };
+  
 
+  document.querySelector('#submitbutton').addEventListener('click', addTask);
 
-
-}
+  }
