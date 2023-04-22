@@ -1,7 +1,6 @@
 /*Aufgabe: L05
 Name: Kim Langer
 Matrikelnummer: 272232
-Quellen: ChatGPT
 */
 var L05;
 (function (L05) {
@@ -138,5 +137,19 @@ var L05;
             _taskElement.remove();
         }
     }
+    // Funktionen, um die Daten asynchron zu senden//
+    async function sendTask(_event) {
+        let formData = new FormData(form);
+        let query = new URLSearchParams(FormData);
+        await fetch("tasklist.html?" + query.toString());
+    }
+    async function waitforResponse() {
+        let response = await fetch("Data.json");
+        let taskcontent = await response.text();
+        let data = JSON.parse(taskcontent);
+    }
+    let tasksubmit = document.querySelector("#submitbutton");
+    tasksubmit.addEventListener("click", sendTask);
+    tasksubmit.addEventListener("click", waitforResponse);
 })(L05 || (L05 = {}));
 //# sourceMappingURL=tasklist.js.map

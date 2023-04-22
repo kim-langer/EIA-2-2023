@@ -1,7 +1,6 @@
 /*Aufgabe: L05
 Name: Kim Langer
 Matrikelnummer: 272232
-Quellen: ChatGPT
 */
 
 namespace L05 {
@@ -56,7 +55,7 @@ namespace L05 {
     document.querySelector('#submitbutton').addEventListener('click', addTask);
   };
 
-let data = { Input: [] };
+  let data = { Input: [] };
 
   // Neue Aufgabe erstellen und Hinzufügen zum HTML //
   function createTaskElement(_task: Task): HTMLElement {
@@ -90,8 +89,8 @@ let data = { Input: [] };
     let deleteButton: HTMLButtonElement = document.createElement('button');
     deleteButton.textContent = 'Löschen';
     deleteButton.addEventListener('click', () => {
-    deleteTask(_task, taskDiv);
-  });
+      deleteTask(_task, taskDiv);
+    });
 
     taskDiv.appendChild(document.createElement('h4')).appendChild(tasknameInput);
     taskDiv.appendChild(document.createElement('p')).textContent = `Zuständige Person: `;
@@ -124,7 +123,7 @@ let data = { Input: [] };
     let responsibleInput: HTMLSelectElement = document.querySelector('#responsible');
     let deadlineInput: HTMLInputElement = document.querySelector('#deadline');
     let inProgressInput: HTMLInputElement = document.querySelector('#inProgress');
-    
+
 
     // Neue Aufgabe erstellen mit den Werten aus dem PopUp
     let newTask: Task = {
@@ -166,5 +165,22 @@ let data = { Input: [] };
       _taskElement.remove();
     }
   }
+
+  // Funktionen, um die Daten asynchron zu senden//
+  async function sendTask(_event: Event): Promise<void> {
+    let formData: FormData = new FormData(form)
+    let query: URLSearchParams = new URLSearchParams(<any>FormData)
+    await fetch("tasklist.html?" + query.toString());
+  }
+
+  async function waitforResponse (): Promise<void> {
+    let response: Response = await fetch("Data.json");
+    let taskcontent: string = await response.text ();
+    let data: Entries = JSON.parse(taskcontent);
+    }
+
+  let tasksubmit = document.querySelector("#submitbutton")
+  tasksubmit.addEventListener("click", sendTask)
+  tasksubmit.addEventListener("click", waitforResponse)
 
 }
