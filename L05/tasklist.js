@@ -1,7 +1,7 @@
-/*Aufgabe: L04
+/*Aufgabe: L05
 Name: Kim Langer
 Matrikelnummer: 272232
-Quellen: EIA 1 Aufgaben, ChatGPT
+Quellen: ChatGPT
 */
 var L05;
 (function (L05) {
@@ -31,6 +31,7 @@ var L05;
         let popupContainer = document.createElement('div');
         popupContainer.innerHTML = popupHTML;
         document.body.appendChild(popupContainer);
+        popupContainer.id = 'popup-container';
         // Style des Pop-Up-Fensters festlegen //
         popupContainer.style.position = 'fixed';
         popupContainer.style.top = '300px';
@@ -115,6 +116,7 @@ var L05;
         // HTML updaten
         createTaskElement(newTask);
         document.querySelector('#popup').remove();
+        document.querySelector('#popup-container').remove();
     }
     ;
     // Funktion für das Klicken der Checkbox//
