@@ -1,44 +1,31 @@
-namespace L03_FormElements {
-    window.addEventListener("load", init);
+let canvas: HTMLCanvasElement = document.querySelector("canvas");
+let ctx: CanvasRenderingContext2D = canvas.getContext("2d");
 
-    function init(_event: Event): void {
-        console.log("Init");
-        let fieldsets: NodeListOf<HTMLFieldSetElement> = document.querySelectorAll("fieldset");
+// Dreieck zeichnen //
+// Set the fill color
+ctx.fillStyle = 'blue';
 
-        // Install listeners on fieldsets
-        for (let i: number = 0; i < fieldsets.length; i++) {
-            let fieldset: HTMLFieldSetElement = fieldsets[i];
-            fieldset.addEventListener("change", handleChange);
-            fieldset.addEventListener("input", handleChange);
-        }
-    }
+// Start the path and set the starting point
+ctx.beginPath();
+ctx.moveTo(50, 50);
 
-    function handleChange(_event: Event): void {
-        let target: HTMLInputElement = <HTMLInputElement>_event.target;
-        console.log();
-        if (_event.type == "change")
-            console.warn("Change: " + target.name + " = " + target.value, _event);
-        else
-            console.log("Input: " + target.name + " = " + target.value, _event);
+// Draw the lines to complete the triangle
+ctx.lineTo(100, 100);
+ctx.lineTo(50, 100);
 
- 
-        if (target.type == "checkbox")
-            console.log("Checked: " + target.name + " = " + target.checked);
+// Close the path to complete the triangle
+ctx.closePath();
 
-        if (target.name == "Slider") {
-            let progress: HTMLProgressElement = <HTMLProgressElement>document.getElementsByTagName("progress")[0];
-            progress.value = parseFloat(target.value);
-        }
+// Fill the triangle with the specified fill color
+ctx.fill();
 
-        if (target.name == "Stepper") {
-            let meter: HTMLMeterElement = <HTMLMeterElement>document.querySelector("meter");
-            meter.value = parseFloat(target.value);
-        }
+ctx.beginPath();
 
+let gradient: CanvasGradient = ctx.createLinearGradient(0, 0, 0, 100);
 
-        if (target.name == "Color") {
-            let ouput: HTMLOutputElement = <HTMLOutputElement>document.querySelector("output");
-            ouput.value = target.value;
-        }
-    }
-}
+gradient.addColorStop(0, "black");
+gradient.addColorStop(.5, "red");
+gradient.addColorStop(1, "gold");
+
+ctx.fillStyle = gradient;
+ctx.fillRect(0, 0, 200, 100);

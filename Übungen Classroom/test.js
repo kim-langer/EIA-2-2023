@@ -1,37 +1,23 @@
-var L03_FormElements;
-(function (L03_FormElements) {
-    window.addEventListener("load", init);
-    function init(_event) {
-        console.log("Init");
-        let fieldsets = document.querySelectorAll("fieldset");
-        // Install listeners on fieldsets
-        for (let i = 0; i < fieldsets.length; i++) {
-            let fieldset = fieldsets[i];
-            fieldset.addEventListener("change", handleChange);
-            fieldset.addEventListener("input", handleChange);
-        }
-    }
-    function handleChange(_event) {
-        let target = _event.target;
-        console.log();
-        if (_event.type == "change")
-            console.warn("Change: " + target.name + " = " + target.value, _event);
-        else
-            console.log("Input: " + target.name + " = " + target.value, _event);
-        if (target.type == "checkbox")
-            console.log("Checked: " + target.name + " = " + target.checked);
-        if (target.name == "Slider") {
-            let progress = document.getElementsByTagName("progress")[0];
-            progress.value = parseFloat(target.value);
-        }
-        if (target.name == "Stepper") {
-            let meter = document.querySelector("meter");
-            meter.value = parseFloat(target.value);
-        }
-        if (target.name == "Color") {
-            let ouput = document.querySelector("output");
-            ouput.value = target.value;
-        }
-    }
-})(L03_FormElements || (L03_FormElements = {}));
+let canvas = document.querySelector("canvas");
+let ctx = canvas.getContext("2d");
+// Dreieck zeichnen //
+// Set the fill color
+ctx.fillStyle = 'blue';
+// Start the path and set the starting point
+ctx.beginPath();
+ctx.moveTo(50, 50);
+// Draw the lines to complete the triangle
+ctx.lineTo(100, 100);
+ctx.lineTo(50, 100);
+// Close the path to complete the triangle
+ctx.closePath();
+// Fill the triangle with the specified fill color
+ctx.fill();
+ctx.beginPath();
+let gradient = ctx.createLinearGradient(0, 0, 0, 100);
+gradient.addColorStop(0, "black");
+gradient.addColorStop(.5, "red");
+gradient.addColorStop(1, "gold");
+ctx.fillStyle = gradient;
+ctx.fillRect(0, 0, 200, 100);
 //# sourceMappingURL=test.js.map
