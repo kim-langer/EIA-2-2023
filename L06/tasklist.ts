@@ -183,4 +183,6 @@ namespace L06 {
   tasksubmit.addEventListener("click", sendTask)
   tasksubmit.addEventListener("click", waitforResponse)
 
+  
+
 }
