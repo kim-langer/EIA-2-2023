@@ -1,9 +1,9 @@
-/*Aufgabe: L05
+/*Aufgabe: L06
 Name: Kim Langer
 Matrikelnummer: 272232
 */
-var L05;
-(function (L05) {
+var L06;
+(function (L06) {
     document.getElementById('PopupButton').addEventListener('click', openPopup);
     function openPopup() {
         // Erstellen eines HTML-Strings für das Pop-Up-Fenster //
@@ -151,5 +151,5 @@ var L05;
     let tasksubmit = document.querySelector("#submitbutton");
     tasksubmit.addEventListener("click", sendTask);
     tasksubmit.addEventListener("click", waitforResponse);
-})(L05 || (L05 = {}));
+})(L06 || (L06 = {}));
 //# sourceMappingURL=tasklist.js.map
