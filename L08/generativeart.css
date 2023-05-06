@@ -1,0 +1,13 @@
+h1 {
+    margin-left: 10px;
+    background-image: linear-gradient(to right, rgb(52, 116, 69), rgb(101, 224, 85), rgb(248, 248, 31));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+#canvas {
+    border: 2px;
+    border-style: outset;
+    margin-left: 10px;
+}
