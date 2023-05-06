@@ -34,43 +34,51 @@ var L08;
         }
     }
     function getRandomColor2() {
-        const r = Math.floor(Math.random() * 256);
-        const g = Math.floor(Math.random() * 256);
-        const b = Math.floor(Math.random() * 256);
+        let r = Math.floor(Math.random() * 256);
+        let g = Math.floor(Math.random() * 256);
+        let b = Math.floor(Math.random() * 256);
         return `rgb(${r}, ${g}, ${b})`;
     }
     // Hintergrund mit Kurven und Farbverlauf generieren
     function createBackground() {
         // Create gradient
-        const gradient = crc2.createLinearGradient(0, 0, canvas.width, canvas.height);
+        let gradient = crc2.createLinearGradient(0, 0, canvas.width, canvas.height);
         gradient.addColorStop(0, getRandomColor2());
         gradient.addColorStop(1, getRandomColor2());
         // Fill background
         crc2.fillStyle = gradient;
         crc2.fillRect(0, 0, canvas.width, canvas.height);
         // zufällige Kurven zeichnen
+        let pattern = 20;
         for (let i = 0; i < 5; i++) {
-            const startX = Math.random() * canvas.width;
-            const startY = Math.random() * canvas.height;
-            const endX = Math.random() * canvas.width;
-            const endY = Math.random() * canvas.height;
-            const cp1X = Math.random() * canvas.width;
-            const cp1Y = Math.random() * canvas.height;
-            const cp2X = Math.random() * canvas.width;
-            const cp2Y = Math.random() * canvas.height;
-            crc2.beginPath();
-            crc2.moveTo(startX, startY);
-            crc2.bezierCurveTo(cp1X, cp1Y, cp2X, cp2Y, endX, endY);
-            crc2.strokeStyle = "rgba(255, 255, 255, 0.1)";
-            crc2.lineWidth = 5;
-            crc2.stroke();
+            let startX = Math.random() * canvas.width;
+            let startY = Math.random() * canvas.height;
+            let endX = Math.random() * canvas.width;
+            let endY = Math.random() * canvas.height;
+            let cp1X = Math.random() * canvas.width;
+            let cp1Y = Math.random() * canvas.height;
+            let cp2X = Math.random() * canvas.width;
+            let cp2Y = Math.random() * canvas.height;
+            for (let i = 0; i < pattern; i++) {
+                let t1 = i / pattern;
+                let t2 = (i + 1) / pattern;
+                let x1 = startX * (1 - t1) ** 3 + cp1X * 3 * (1 - t1) ** 2 * t1 + cp2X * 3 * (1 - t1) * t1 ** 2 + endX * t1 ** 3;
+                let y1 = startY * (1 - t1) ** 3 + cp1Y * 3 * (1 - t1) ** 2 * t1 + cp2Y * 3 * (1 - t1) * t1 ** 2 + endY * t1 ** 3;
+                let x2 = startX * (1 - t2) ** 3 + cp1X * 3 * (1 - t2) ** 2 * t2 + cp2X * 3 * (1 - t2) * t2 ** 2 + endX * t2 ** 3;
+                let y2 = startY * (1 - t2) ** 3 + cp1Y * 3 * (1 - t2) ** 2 * t2 + cp2Y * 3 * (1 - t2) * t2 ** 2 + endY * t2 ** 3;
+                crc2.beginPath();
+                crc2.moveTo(x1, y1);
+                crc2.lineTo(x2, y2);
+                crc2.strokeStyle = getRandomColor();
+                crc2.stroke();
+            }
         }
     }
     window.addEventListener("load", handleload);
     function handleload(_event) {
         createBackground();
         createBlurryCircle(crc2, canvas.width, canvas.height);
-        createCircles(200);
+        createCircles(50);
     }
 })(L08 || (L08 = {}));
 //# sourceMappingURL=generativeart.js.map
