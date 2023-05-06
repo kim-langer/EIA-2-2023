@@ -22,7 +22,7 @@ var L08;
         _context.arc(x, y, radius, 0, 2 * Math.PI);
         _context.fill();
     }
-    // Farben für den kreis auf Grün und Gelbtöne beschränken
+    // Farben für den kreis auf Grün- und Gelbtöne beschränken
     function getRandomColor() {
         let colors = ["#2B5441", "#22741C", "#F7DC6F", "#7FFF00"];
         return colors[Math.floor(Math.random() * colors.length)];
@@ -41,15 +41,12 @@ var L08;
     }
     // Hintergrund mit Kurven und Farbverlauf generieren
     function createBackground() {
-        // Create gradient
         let gradient = crc2.createLinearGradient(0, 0, canvas.width, canvas.height);
         gradient.addColorStop(0, getRandomColor2());
         gradient.addColorStop(1, getRandomColor2());
-        // Fill background
         crc2.fillStyle = gradient;
         crc2.fillRect(0, 0, canvas.width, canvas.height);
-        // zufällige Kurven zeichnen
-        let pattern = 20;
+        let pattern = 40;
         for (let i = 0; i < 5; i++) {
             let startX = Math.random() * canvas.width;
             let startY = Math.random() * canvas.height;
