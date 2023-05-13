@@ -151,7 +151,7 @@ namespace L08_2 {
         crc2.beginPath();
         crc2.fillStyle = "#302018";
         crc2.ellipse(0, headRadius - bodyHeight / 2, bodyHeight, bodyWidth, 0, Math.PI * 1.5, Math.PI * 0.5);
-        crc2.closePath(); // Eine Linie zum Schließen der Ellipse hinzufügen
+        crc2.closePath();
         crc2.fill();
 
         crc2.restore();
@@ -200,43 +200,42 @@ namespace L08_2 {
         crc2.restore();
     }
 
-    function drawHotAirBalloon(position: Vector, balloonRadius: number, basketWidth: number, basketHeight: number): void {
+    function drawHotAirBalloon(_position: Vector, _balloonRadius: number, _basketWidth: number, _basketHeight: number): void {
 
         crc2.save();
-        crc2.translate(position.x, position.y);
+        crc2.translate(_position.x, _position.y);
 
         // Korb zeichnen
         crc2.beginPath();
-        crc2.moveTo(-basketWidth / 2, balloonRadius);
-        crc2.lineTo(-basketWidth / 2, balloonRadius + basketHeight);
-        crc2.arcTo(-basketWidth / 2, balloonRadius + basketHeight + basketWidth / 2, basketWidth / 2, balloonRadius + basketHeight + basketWidth / 2, 10);
-        crc2.arcTo(basketWidth / 2, balloonRadius + basketHeight + basketWidth / 2, basketWidth / 2, balloonRadius + basketHeight, 10);
-        crc2.lineTo(basketWidth / 2, balloonRadius);
+        crc2.moveTo(-_basketWidth / 2, _balloonRadius);
+        crc2.lineTo(-_basketWidth / 2, _balloonRadius + _basketHeight);
+        crc2.arcTo(-_basketWidth / 2, _balloonRadius + _basketHeight + _basketWidth / 2, _basketWidth / 2, _balloonRadius + _basketHeight + _basketWidth / 2, 10);
+        crc2.arcTo(_basketWidth / 2, _balloonRadius + _basketHeight + _basketWidth / 2, _basketWidth / 2, _balloonRadius + _basketHeight, 10);
+        crc2.lineTo(_basketWidth / 2, _balloonRadius);
         crc2.closePath();
         crc2.fillStyle = "#754c24";
         crc2.fill();
 
         // Ballon zeichnen
-        let gradient = crc2.createRadialGradient(0, 0, 0, 0, 0, balloonRadius);
+        let gradient = crc2.createRadialGradient(0, 0, 0, 0, 0, _balloonRadius);
         let colors = getRandomColor();
         gradient.addColorStop(0, colors);
         gradient.addColorStop(0.5, colors);
         gradient.addColorStop(1, "beige");
         crc2.beginPath();
-        crc2.arc(0, 0, balloonRadius, 0, 2 * Math.PI);
+        crc2.arc(0, 0, _balloonRadius, 0, 2 * Math.PI);
         crc2.fillStyle = gradient;
         crc2.fill();
 
         // Linien zwischen Korb und Ballon zeichnen
         crc2.beginPath();
-        crc2.moveTo(-basketWidth / 2, balloonRadius);
+        crc2.moveTo(-_basketWidth / 2, _balloonRadius);
         crc2.lineTo(0, 0);
-        crc2.lineTo(basketWidth / 2, balloonRadius);
+        crc2.lineTo(_basketWidth / 2, _balloonRadius);
         crc2.strokeStyle = "#595959";
         crc2.lineWidth = 1;
         crc2.stroke();
 
-        // Lokales Koordinatensystem wiederherstellen
         crc2.restore();
     }
 
