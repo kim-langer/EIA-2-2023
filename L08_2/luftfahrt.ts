@@ -3,7 +3,7 @@ Name: Kim Langer
 Matrikelnummer: 272232
 Quellen: Jirkas Inverted Classroom
 
-Sonstige Anmerkungen: Der Code ist noch nicht ganz vollständig, wird spätestens am 16.Mai nachgereicht
+Sonstige Anmerkungen: Der Code ist noch nicht ganz vollständig
 */
 namespace L08_2 {
 
@@ -27,7 +27,8 @@ namespace L08_2 {
         drawActivityMountain();
         drawKiosk({ x: 950, y: 560 }, { x: 100, y: 100 });
         drawLandingPlace({ x: 700, y: 590 }, { x: 140, y: 100 });
-        drawHotAirBalloon({ x: 700, y: 200 }, 80, 60, 20);
+        drawHotAirBalloon({ x: 800, y: 280 }, 60, 50, 10);
+        drawHotAirBalloon({ x: 400, y: 200 }, 60, 50, 10);
 
     }
 
@@ -217,11 +218,10 @@ namespace L08_2 {
 
         // Ballon zeichnen
         let gradient = crc2.createRadialGradient(0, 0, 0, 0, 0, balloonRadius);
-        let colors = [getRandomColor(), getRandomColor(), getRandomColor()]; 
-        let randomIndex = Math.floor(Math.random() * colors.length); // zufällige Farbauswahl
-        gradient.addColorStop(0, colors[randomIndex]);
-        gradient.addColorStop(0.5, colors[randomIndex]);
-        gradient.addColorStop(1, "lightgrey");
+        let colors = getRandomColor();
+        gradient.addColorStop(0, colors);
+        gradient.addColorStop(0.5, colors);
+        gradient.addColorStop(1, "beige");
         crc2.beginPath();
         crc2.arc(0, 0, balloonRadius, 0, 2 * Math.PI);
         crc2.fillStyle = gradient;
@@ -242,9 +242,9 @@ namespace L08_2 {
 
 
     function getRandomColor(): string {
-        const r = Math.floor(Math.random() * 256);
-        const g = Math.floor(Math.random() * 256);
-        const b = Math.floor(Math.random() * 256);
+        let r = Math.floor(Math.random() * 256);
+        let g = Math.floor(Math.random() * 256);
+        let b = Math.floor(Math.random() * 256);
         return `rgb(${r}, ${g}, ${b})`;
     }
 
