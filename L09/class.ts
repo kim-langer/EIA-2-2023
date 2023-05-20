@@ -5,54 +5,54 @@ namespace L09 {
         food: string;
         sound: string;
         foodAmount: number;
-      
+
         constructor(animalType: string, food: string, sound: string, foodAmount: number) {
-          this.animalType = animalType;
-          this.food = food;
-          this.sound = sound;
-          this.foodAmount = foodAmount;
+            this.animalType = animalType;
+            this.food = food;
+            this.sound = sound;
+            this.foodAmount = foodAmount;
         }
-      
+
         async sing(): Promise<string> {
-          return`${this.sound} ${this.sound} ...ich singe den ganzen Tag ${this.sound} ${this.sound} `;
+            return `${this.sound} ${this.sound} ...i'm singing all day long ${this.sound} ${this.sound} `;
         }
-      
-        async eat(): Promise<void> {
-          console.log(`${this.animalType} is eating ${this.food}.`);
-          this.foodAmount--;
+
+        async eat(): Promise<string> {
+            this.foodAmount--;
+            this.foodAmount--;
+            this.foodAmount--;
+            return `${this.animalType} is eating a lot of ${this.food}.`
         }
-      
+
         getAmount(): number {
-          return this.foodAmount;
+            return this.foodAmount;
         }
-      }
+    }
 
 
-      export class Cow extends Animal {
+    export class Cow extends Animal {
         constructor() {
-          super("Cow", "Grass", "Muhh", 10);
+            super("Cow", "Grass", "Muhh", 10);
         }
-      }
-      
-     export class Chicken extends Animal {
+    }
+
+    export class Chicken extends Animal {
         constructor() {
-          super("Chicken", "Grains", "Cluck", 5);
+            super("Chicken", "Grains", "Cluck", 5);
         }
-      }
-      
-     export class Pig extends Animal {
+    }
+
+    export class Pig extends Animal {
         constructor() {
-          super("Pig", "Junk", "Oink", 8);
+            super("Pig", "Junk", "Oink", 8);
         }
-      }
-      
-      export class Dog extends Animal {
+    }
+
+    export class Dog extends Animal {
         constructor() {
-          super("Dog", "Meat", "Woof", 7);
+            super("Dog", "Meat", "Woof", 7);
         }
-      }
-      
-      
-      
+    }
+
 
 }

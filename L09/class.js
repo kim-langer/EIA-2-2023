@@ -12,11 +12,13 @@ var L09;
             this.foodAmount = foodAmount;
         }
         async sing() {
-            return `${this.sound} ${this.sound} ...ich singe den ganzen Tag ${this.sound} ${this.sound} `;
+            return `${this.sound} ${this.sound} ...i'm singing all day long ${this.sound} ${this.sound} `;
         }
         async eat() {
-            console.log(`${this.animalType} is eating ${this.food}.`);
             this.foodAmount--;
+            this.foodAmount--;
+            this.foodAmount--;
+            return `${this.animalType} is eating a lot of ${this.food}.`;
         }
         getAmount() {
             return this.foodAmount;

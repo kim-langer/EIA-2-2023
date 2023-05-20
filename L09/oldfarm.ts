@@ -336,7 +336,7 @@ function drawChicken(position: Vector, size: Vector): void {
 }
 
 
-//Die Tiere aus den Classes erstellen/abrufen//
+//Die Tiere aus den Classes erstellen//
 
 let cow = new Cow();
 let chicken = new Chicken();
@@ -351,31 +351,46 @@ async function performActions(): Promise<void> {
     await singAndEat(pig);
     await singAndEat(dog);
     await singAndEat(babypig);
+
+    showFarmertheAmount();
   }
   
   async function singAndEat(animal: Animal): Promise<void> {
-    const songText = await animal.sing();
+    let songText = await animal.sing();
     console.log(songText);
   
-    // Hier erfolgt die Anzeige des Songtexts
-    const canvas = document.getElementById('canvas');
-    const context = canvas.getContext('2d');
-    const textX = 150;
-    const textY = 350;
-    const textWidth = 500;
-    const textHeight = 20;
+    crc2.font = '20px Montserrat';
+    crc2.fillStyle = 'black';
+    crc2.fillText(songText, 150, 300);
   
-    context.font = '20px Arial';
-    context.fillStyle = 'black';
-    context.fillText(songText, textX, textY);
-  
-    await animal.eat();
+    let eatText = await animal.eat();
+    crc2.fillText(eatText, 150, 350);
   
     // Timeout von 3 Sekunden
     await new Promise(resolve => setTimeout(resolve, 3000));
   
-    // Hier erfolgt das Löschen des Songtexts
-    context.clearRect(textX, textY - textHeight, textWidth, textHeight);
+    // Hier erfolgt das Löschen der Texte
+    let textWidth = Math.max(crc2.measureText(songText).width, crc2.measureText(eatText).width);
+    crc2.clearRect(150, 300 - 20, textWidth, 80);
+  }
+
+  function showFarmertheAmount() {
+    let endText = `The day is over`;
+    let cowAmountText = `Cow's remaining food: ${cow.getAmount()}`;
+    let chickenAmountText = `Chicken's remaining food: ${chicken.getAmount()}`;
+    let pigAmountText = `Pig's remaining food: ${pig.getAmount()}`;
+    let babypigAmountText = `Baby Pig's remaining food: ${babypig.getAmount()}`;
+    let dogAmountText = `Dog's remaining food: ${dog.getAmount()}`;
+  
+    crc2.font = 'bold 20px Montserrat';
+  crc2.fillStyle = 'black';
+  crc2.fillText(endText, 150, 200);
+  crc2.font = '20px Montserrat'; // Zurück zum normalen Font für den restlichen Text
+  crc2.fillText(cowAmountText, 150, 250);
+  crc2.fillText(chickenAmountText, 150, 280);
+  crc2.fillText(pigAmountText, 150, 310);
+  crc2.fillText(babypigAmountText, 150, 340);
+  crc2.fillText(dogAmountText, 150, 370);
   }
   
 
