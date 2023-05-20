@@ -20,7 +20,7 @@ var L09;
         drawChicken({ x: 500, y: 650 }, { x: 60, y: 90 });
         performActions();
     }
-    //Hintergrund definieren//
+    //Hintergrund definieren und alles zeichnen//
     let horizon = 0.62;
     function drawBackground() {
         let gradient = crc2.createLinearGradient(0, 0, 0, crc2.canvas.height);
@@ -88,7 +88,7 @@ var L09;
         crc2.arc(headX, headY, headRadius, 0, 2 * Math.PI);
         crc2.fillStyle = "#f1bdd4";
         crc2.fill();
-        // Zeichne das Auge
+        // Auge zeichnen
         let eyeRadius = headRadius * 0.2;
         let eyeX = headX + eyeRadius;
         let eyeY = headY;
@@ -96,7 +96,7 @@ var L09;
         crc2.arc(eyeX, eyeY, eyeRadius, 0, 2 * Math.PI);
         crc2.fillStyle = "#000000";
         crc2.fill();
-        // Zeichne die Iris
+        // und die Iris zeichnen
         let irisRadius = eyeRadius * 0.6;
         let irisX = eyeX + irisRadius;
         let irisY = eyeY;
@@ -277,17 +277,17 @@ var L09;
         await singAndEat(babypig);
         showFarmertheAmount();
     }
-    async function singAndEat(animal) {
-        let songText = await animal.sing();
+    async function singAndEat(_animal) {
+        let songText = await _animal.sing();
         console.log(songText);
         crc2.font = '20px Montserrat';
         crc2.fillStyle = 'black';
         crc2.fillText(songText, 150, 300);
-        let eatText = await animal.eat();
+        let eatText = await _animal.eat();
         crc2.fillText(eatText, 150, 350);
         // Timeout von 3 Sekunden
         await new Promise(resolve => setTimeout(resolve, 3000));
-        // Hier erfolgt das Löschen der Texte
+        // Löschen der Texte (funktioniert nicht so ganz)
         let textWidth = Math.max(crc2.measureText(songText).width, crc2.measureText(eatText).width);
         crc2.clearRect(150, 300 - 20, textWidth, 80);
     }
