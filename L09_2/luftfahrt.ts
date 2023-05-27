@@ -1,3 +1,5 @@
+import { Insect } from "./classes";
+
 /*Aufgabe: L09.2
 Name: Kim Langer
 Matrikelnummer: 272232
@@ -7,13 +9,14 @@ namespace L09_2 {
 
     window.addEventListener("load", handleLoad);
 
-    let canvas = document.querySelector('canvas');
-    let crc2 = canvas.getContext('2d');
+    export let canvas = document.querySelector('canvas');
+    export let crc2 = canvas.getContext('2d');
 
     interface Vector {
         x: number;
         y: number;
     }
+
     function handleLoad(_event: Event): void {
         drawBackground();
         drawSun({ x: 1100, y: 75 });
@@ -26,7 +29,7 @@ namespace L09_2 {
         drawHotAirBalloon({ x: 400, y: 200 }, 60, 50, 10);
         drawActivityMountain();
         drawFigure({ x: 400, y: 500 }, { x: 100, y: 180 });
-        drawInsect ({ x: 150, y: 200 }, 50)
+      
     }
 
 
@@ -168,7 +171,7 @@ namespace L09_2 {
         crc2.save();
         crc2.translate(_position.x, _position.y);
 
-        // Korb zeichnen
+        // Korb 
         crc2.beginPath();
         crc2.moveTo(-_basketWidth / 2, _balloonRadius);
         crc2.lineTo(-_basketWidth / 2, _balloonRadius + _basketHeight);
@@ -189,7 +192,7 @@ namespace L09_2 {
         crc2.fillStyle = gradient;
         crc2.fill();
 
-        // Linien zwischen Korb und Ballon zeichnen
+        // Linien zwischen Korb und Ballon
         crc2.beginPath();
         crc2.moveTo(-_basketWidth / 2, _balloonRadius);
         crc2.lineTo(0, 0);
@@ -212,28 +215,26 @@ namespace L09_2 {
         crc2.fill();
     }
 
-    // Definieren Sie die Funktion zum Zeichnen der Figur
-
     function drawFigure(position: Vector, size: Vector): void {
 
         crc2.save();
         crc2.translate(position.x, position.y);
 
-        // Zeichnen Sie den Körper
+        // Körper
         crc2.beginPath();
         crc2.arc(0, 0, size.x / 4, 0, 2 * Math.PI); // Beispiel für einen Kreis als Körper
         crc2.fillStyle = "brown"; // Farbe des Körpers
         crc2.fill();
         crc2.closePath();
 
-        // Zeichnen Sie den Kopf
+        // Kopf
         crc2.beginPath();
         crc2.arc(0, -size.x / 4, size.x / 8, 0, 2 * Math.PI); // Beispiel für einen Kreis als Kopf
         crc2.fillStyle = "bisque"; // Farbe des Kopfes
         crc2.fill();
         crc2.closePath();
 
-        // Zeichnen Sie die Seile
+        // Seile
         const ropeLength = size.y / 3;
         const ropeOffset = size.x / 5;
 
@@ -251,46 +252,15 @@ namespace L09_2 {
         crc2.stroke();
         crc2.closePath();
 
-        // Verbinden Sie die Seile mit einem Halbkreis (gedreht und gefüllt)
+     
         crc2.beginPath();
-        crc2.arc(0, -ropeLength, size.x / 4, Math.PI, 2 * Math.PI); // Halbkreis als Verbindung (gedreht)
+        crc2.arc(0, -ropeLength, size.x / 4, Math.PI, 2 * Math.PI); 
         crc2.fillStyle = "lightblue";
         crc2.fill();
         crc2.closePath();
 
         crc2.restore();
     }
-
-    function drawInsect(position: Vector, size: number): void {
-          crc2.save();
-        crc2.translate(position.x, position.y);
-      
-        // Körper des Insekts
-        crc2.beginPath();
-        crc2.arc(0, 0, size / 6, 0, 2 * Math.PI); // Kreis als Körper
-        crc2.fillStyle = "#fcca27"; // Farbe des Körpers
-        crc2.fill();
-        crc2.closePath();
-      
-        // Kopf des Insekts
-        crc2.beginPath();
-        crc2.arc(0, -size / 6, size / 8, 0, 2 * Math.PI); // Kreis als Kopf
-        crc2.fillStyle = "black"; // Farbe des Kopfes
-        crc2.fill();
-        crc2.closePath();
-      
-        // Flügel des Insekts
-        crc2.beginPath();
-        crc2.moveTo(size / 6, 0);
-        crc2.lineTo(size / 3, -size / 10);
-        crc2.lineTo(size / 6, -size / 10);
-        crc2.fillStyle = "#fcca27";; // Farbe der Flügel
-        crc2.fill();
-        crc2.closePath();
-      
-        crc2.restore();
-      }
-      
       
 
 
