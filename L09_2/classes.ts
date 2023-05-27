@@ -4,48 +4,98 @@ namespace L09_2 {
         position: Vector;
         velocity: Vector;
         activity: string;
-    
+        size: Vector;
+
         constructor(_position: Vector) {
             this.position = _position;
             this.velocity = new Vector(0, 0);
             this.activity = "fly";
+            this.size = new Vector(50, 100);
         }
-    
-        draw(): void {
-            // Implementiere die Logik zum Zeichnen des Paragliders an der aktuellen Position
-            console.log("Paraglider zeichnen an Position:", this.position);
+
+        draw(crc2: CanvasRenderingContext2D): void {
+
+            crc2.save();
+            crc2.translate(this.position.x, this.position.y);
+
+            // Körper
+            crc2.beginPath();
+            crc2.arc(0, 0, this.size.x / 4, 0, 2 * Math.PI);
+            crc2.fillStyle = "brown";
+            crc2.fill();
+            crc2.closePath();
+
+            // Kopf
+            crc2.beginPath();
+            crc2.arc(0, -this.size.x / 4, this.size.x / 8, 0, 2 * Math.PI);
+            crc2.fillStyle = "bisque";
+            crc2.fill();
+            crc2.closePath();
+
+            // Seile
+            const ropeLength = this.size.y / 3;
+            const ropeOffset = this.size.x / 5;
+
+            crc2.beginPath();
+            crc2.moveTo(-ropeOffset, 0);
+            crc2.lineTo(-ropeOffset * 1.2, -ropeLength);
+            crc2.strokeStyle = "black";
+            crc2.stroke();
+            crc2.closePath();
+
+            crc2.beginPath();
+            crc2.moveTo(ropeOffset, 0);
+            crc2.lineTo(ropeOffset * 1.2, -ropeLength);
+            crc2.strokeStyle = "black";
+            crc2.stroke();
+            crc2.closePath();
+
+
+            crc2.beginPath();
+            crc2.arc(0, -ropeLength, this.size.x / 4, Math.PI, 2 * Math.PI);
+            crc2.fillStyle = "lightblue";
+            crc2.fill();
+            crc2.closePath();
+
+            crc2.restore();
         }
-    
-        fly(_timeslice: number): void {
-            // Implementiere die Logik für den Flug des Paragliders
-    
-            // Berechne die Richtung zum Ziel
-            const target = new Vector(700, 590);
-            const direction = new Vector(target.x - this.position.x, target.y - this.position.y);
-    
+
+        fly(crc2: CanvasRenderingContext2D, _timeslice: number): void {
+
+            let destination = new Vector(700, 590);
+            let direction = new Vector(destination.x - this.position.x, destination.y - this.position.y);
+
+            // Aktualisiere die Position basierend auf der Geschwindigkeit und der Zeit
+            this.position.add(this.velocity.scale(_timeslice));
+
             // Normalisiere die Richtung
             const length = Math.sqrt(direction.x * direction.x + direction.y * direction.y);
             direction.scale(1 / length);
-    
+
             // Aktualisiere die Geschwindigkeit basierend auf der Richtung
-            const speed = 100; // Beispielgeschwindigkeit
+            const speed = 100;
             this.velocity.set(direction.x * speed, direction.y * speed);
-    
-            // Aktualisiere die Position basierend auf der Geschwindigkeit und der Zeit
-            this.position.add(new Vector(this.velocity.x * _timeslice, this.velocity.y * _timeslice));
-    
+
             // Zeichne den Paraglider
-            this.draw();
-    
-            // Überprüfe, ob der Paraglider das Ziel erreicht hat
-            const distanceToTarget = Math.sqrt(
-                Math.pow(target.x - this.position.x, 2) + Math.pow(target.y - this.position.y, 2)
-            );
-            if (distanceToTarget < 5) {
+            this.draw(crc2);
+
+            // Überprüft, ob die y-Position größer als die Bodenhöhe ist
+            const yGround = 590;
+            if (this.position.y > yGround) {
                 this.activity = "walk";
             }
-        } }
+        }
 
+
+        walk(_timeslice: number): void {
+            //Paraglider läuft zum Berg
+        }
+
+        climb(_timeslice: number): void {
+            //Paraglider klettert den Berg hoch 
+        }
+
+    }
 
     export class HotAirBalloon {
         position: Vector;
@@ -53,22 +103,22 @@ namespace L09_2 {
         activity: string;
 
         constructor(position) {
-          
+
         }
 
         draw(): void {
-           
+
         }
 
         start(_timeslice: number): void {
-        
+
         }
-       fly(_timeslice: number): void {
-        
+        fly(_timeslice: number): void {
+
         }
 
     }
 
-    } 
+}
 
-    
+

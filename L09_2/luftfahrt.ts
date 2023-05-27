@@ -2,7 +2,12 @@
 Name: Kim Langer
 Matrikelnummer: 272232
 Quellen: Chat GPT, Stackoverflow
+
+Anmerkungen: 
+- bei der Klasse vom Paraglider bin ich nicht mehr weitergekommen, ich verstehe auch die Fehlermeldungen nicht
+- die Insekten löschen trotz statischem HG immer noch den Hintergrund
 */
+
 namespace L09_2 {
 
     window.addEventListener("load", handleLoad);
@@ -37,24 +42,23 @@ namespace L09_2 {
         drawLandingPlace(backgroundContext, { x: 700, y: 590 }, { x: 140, y: 100 });
         drawHotAirBalloon(backgroundContext, { x: 800, y: 280 }, 60, 50, 10);
         drawActivityMountain(backgroundContext);
-        drawParaglider(backgroundContext, { x: 400, y: 500 }, { x: 100, y: 180 });
+        drawParaglider(backgroundContext, { x: 50, y: 280}, { x: 100, y: 180 });
         crc2.drawImage(backgroundCanvas, 0, 0);
 
         // Animationen starten
-        let insect = new Insect({ x: 400, y: 600 }, 20);
-        let insect2 = new Insect({ x: 500, y: 600 }, 20);
-        let insect3 = new Insect({ x: 600, y: 600 }, 20);
+        let insect = new Insect({ x: 400, y: 600 }, 30);
+        let insect2 = new Insect({ x: 500, y: 600 }, 30);
+        let insect3 = new Insect({ x: 600, y: 600 }, 30);
         setInterval(() => {
             insect.flyRandom();
             insect2.flyRandom();
             insect3.flyRandom();
         }, 100);
 
-        const paraglider = new Paraglider(new Vector(30, 280));
-paraglider.fly(1);
+        let paraglider = new Paraglider(new Vector(30, 280));
+        paraglider.fly(crc2,1);
 
-    }
-
+    }    
 
     //Hintergrund definieren//
     let horizon: number = 0.62;
