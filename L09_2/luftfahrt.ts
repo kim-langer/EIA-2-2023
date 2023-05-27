@@ -1,16 +1,16 @@
-import { Insect } from "./classes";
-
 /*Aufgabe: L09.2
 Name: Kim Langer
 Matrikelnummer: 272232
-Quellen: 
+Quellen: Chat GPT, Stackoverflow
 */
 namespace L09_2 {
 
     window.addEventListener("load", handleLoad);
 
-    export let canvas = document.querySelector('canvas');
-    export let crc2 = canvas.getContext('2d');
+    let canvas: HTMLCanvasElement;
+    let crc2: CanvasRenderingContext2D;
+    let backgroundCanvas: HTMLCanvasElement;
+    let backgroundContext: CanvasRenderingContext2D;
 
     interface Vector {
         x: number;
@@ -18,24 +18,47 @@ namespace L09_2 {
     }
 
     function handleLoad(_event: Event): void {
-        drawBackground();
-        drawSun({ x: 1100, y: 75 });
-        drawClouds({ x: 500, y: 100 }, { x: 200, y: 200 });
-        let moutainsheight: number = crc2.canvas.height * horizon
-        drawMountains({ x: 0, y: moutainsheight }, 100, 230, "grey", "white");
-        drawKiosk({ x: 950, y: 560 }, { x: 100, y: 100 });
-        drawLandingPlace({ x: 700, y: 590 }, { x: 140, y: 100 });
-        drawHotAirBalloon({ x: 800, y: 280 }, 60, 50, 10);
-        drawHotAirBalloon({ x: 400, y: 200 }, 60, 50, 10);
-        drawActivityMountain();
-        drawFigure({ x: 400, y: 500 }, { x: 100, y: 180 });
-      
+
+        canvas = document.querySelector('canvas');
+        crc2 = canvas.getContext('2d');
+
+        // Hintergrund mit statischen Objekten auf ein anderes Canvas speichern
+        backgroundCanvas = document.createElement("canvas");
+        backgroundCanvas.width = canvas.width;
+        backgroundCanvas.height = canvas.height;
+        backgroundContext = backgroundCanvas.getContext("2d");
+
+        drawBackground(backgroundContext);
+        drawSun(backgroundContext, { x: 1100, y: 75 });
+        drawClouds(backgroundContext, { x: 500, y: 100 }, { x: 200, y: 200 });
+        let mountainsHeight: number = crc2.canvas.height * horizon;
+        drawMountains(backgroundContext, { x: 0, y: mountainsHeight }, 100, 230, "grey", "white");
+        drawKiosk(backgroundContext, { x: 950, y: 560 }, { x: 100, y: 100 });
+        drawLandingPlace(backgroundContext, { x: 700, y: 590 }, { x: 140, y: 100 });
+        drawHotAirBalloon(backgroundContext, { x: 800, y: 280 }, 60, 50, 10);
+        drawActivityMountain(backgroundContext);
+        drawParaglider(backgroundContext, { x: 400, y: 500 }, { x: 100, y: 180 });
+        crc2.drawImage(backgroundCanvas, 0, 0);
+
+        // Animationen starten
+        let insect = new Insect({ x: 400, y: 600 }, 20);
+        let insect2 = new Insect({ x: 500, y: 600 }, 20);
+        let insect3 = new Insect({ x: 600, y: 600 }, 20);
+        setInterval(() => {
+            insect.flyRandom();
+            insect2.flyRandom();
+            insect3.flyRandom();
+        }, 100);
+
+        const paraglider = new Paraglider(new Vector(30, 280));
+paraglider.fly(1);
+
     }
 
 
     //Hintergrund definieren//
     let horizon: number = 0.62;
-    function drawBackground(): void {
+    function drawBackground(crc2: CanvasRenderingContext2D): void {
         let gradient: CanvasGradient = crc2.createLinearGradient(0, 0, 0, crc2.canvas.height);
         gradient.addColorStop(0, "lightblue");
         gradient.addColorStop(horizon - 0.001, "white");
@@ -46,7 +69,7 @@ namespace L09_2 {
         crc2.fillRect(0, 0, crc2.canvas.width, crc2.canvas.height);
     }
 
-    function drawSun(_position: Vector): void {
+    function drawSun(crc2: CanvasRenderingContext2D, _position: Vector): void {
         let r1: number = 30;
         let r2: number = 120;
         let gradient: CanvasGradient = crc2.createRadialGradient(0, 0, r1, 0, 0, r2);
@@ -63,7 +86,7 @@ namespace L09_2 {
     }
 
     //Anmerkung: Wolken nicht im Bild sichtbar//
-    function drawClouds(_position: Vector, _size: Vector): void {
+    function drawClouds(crc2: CanvasRenderingContext2D, _position: Vector, _size: Vector): void {
         let nParticles: number = 200;
         let radiusParticle: number = 23;
         let particle: Path2D = new Path2D();
@@ -89,7 +112,7 @@ namespace L09_2 {
 
 
     let posMountains: Vector = { x: 50, y: horizon };
-    function drawMountains(_position: Vector, _min: number, _max: number, _colorLow: string, _colorHigh: string): void {
+    function drawMountains(crc2: CanvasRenderingContext2D, _position: Vector, _min: number, _max: number, _colorLow: string, _colorHigh: string): void {
         let stepMin: number = 40;
         let stepMax: number = 80;
         let x: number = 0;
@@ -121,9 +144,7 @@ namespace L09_2 {
         crc2.restore();
     };
 
-
-
-    function drawKiosk(position: Vector, size: Vector): void {
+    function drawKiosk(crc2: CanvasRenderingContext2D, position: Vector, size: Vector): void {
         crc2.save();
         crc2.translate(position.x, position.y);
 
@@ -151,8 +172,7 @@ namespace L09_2 {
         crc2.restore();
     }
 
-
-    function drawLandingPlace(position: Vector, size: Vector): void {
+    function drawLandingPlace(crc2: CanvasRenderingContext2D, position: Vector, size: Vector): void {
 
         crc2.save();
         crc2.translate(position.x, position.y);
@@ -166,7 +186,7 @@ namespace L09_2 {
         crc2.restore();
     }
 
-    function drawHotAirBalloon(_position: Vector, _balloonRadius: number, _basketWidth: number, _basketHeight: number): void {
+    function drawHotAirBalloon(crc2: CanvasRenderingContext2D, _position: Vector, _balloonRadius: number, _basketWidth: number, _basketHeight: number): void {
 
         crc2.save();
         crc2.translate(_position.x, _position.y);
@@ -204,7 +224,7 @@ namespace L09_2 {
         crc2.restore();
     }
 
-    function drawActivityMountain() {
+    function drawActivityMountain(crc2: CanvasRenderingContext2D) {
         crc2.beginPath();
         crc2.moveTo(0, 550);
 
@@ -215,7 +235,7 @@ namespace L09_2 {
         crc2.fill();
     }
 
-    function drawFigure(position: Vector, size: Vector): void {
+    function drawParaglider(crc2: CanvasRenderingContext2D, position: Vector, size: Vector): void {
 
         crc2.save();
         crc2.translate(position.x, position.y);
@@ -252,18 +272,82 @@ namespace L09_2 {
         crc2.stroke();
         crc2.closePath();
 
-     
+
         crc2.beginPath();
-        crc2.arc(0, -ropeLength, size.x / 4, Math.PI, 2 * Math.PI); 
+        crc2.arc(0, -ropeLength, size.x / 4, Math.PI, 2 * Math.PI);
         crc2.fillStyle = "lightblue";
         crc2.fill();
         crc2.closePath();
 
         crc2.restore();
     }
-      
 
 
+    //ich weiß ist hier in der falschen Skript Datei, aber in der anderen konnte das Hauptprogramm trotz Export irgendwie nicht darauf zugreifen//
+    class Insect {
+        position: Vector;
+        velocity: Vector;
+        size: number;
+
+        constructor(position: Vector, size: number) {
+            this.position = position;
+            this.velocity = new Vector(0, 0);
+            this.size = size;
+        }
+
+        draw(crc2: CanvasRenderingContext2D): void {
+            crc2.save();
+            crc2.translate(this.position.x, this.position.y);
+
+            // Körper des Insekts
+            crc2.beginPath();
+            crc2.arc(0, 0, this.size / 6, 0, 2 * Math.PI); // Kreis als Körper
+            crc2.fillStyle = "#fcca27"; // Farbe des Körpers
+            crc2.fill();
+            crc2.closePath();
+
+            // Kopf des Insekts
+            crc2.beginPath();
+            crc2.arc(0, -this.size / 6, this.size / 8, 0, 2 * Math.PI);
+            crc2.fillStyle = "black";
+            crc2.fill();
+            crc2.closePath();
+
+            // Flügel des Insekts
+            crc2.beginPath();
+            crc2.moveTo(this.size / 6, 0);
+            crc2.lineTo(this.size / 3, -this.size / 10);
+            crc2.lineTo(this.size / 6, -this.size / 10);
+            crc2.fillStyle = "#fcca27";
+            crc2.fill();
+            crc2.closePath();
+
+            crc2.restore();
+        }
+
+        flyRandom(): void {
+            let directionX = Math.random() * 2 - 1; // Zufällige X-Richtung (-1 bis 1)
+            let directionY = Math.random() * 2 - 1; // Zufällige Y-Richtung (-1 bis 1)
+            let speed = Math.random() * 2 + 0.5; // Zufällige Fluggeschwindigkeit (0.5 bis 2.5)
+
+            let stepX = directionX * speed;
+            let stepY = directionY * speed;
+
+            this.position.x += stepX;
+            this.position.y += stepY;
+
+
+            crc2.clearRect(
+                this.position.x - this.size,
+                this.position.y - this.size,
+                this.size * 2,
+                this.size * 2
+            );
+
+            // Zeichnen der neuen Position
+            this.draw(crc2);
+        }
+    }
 }
 
 

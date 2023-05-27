@@ -4,26 +4,47 @@ namespace L09_2 {
         position: Vector;
         velocity: Vector;
         activity: string;
-
-        constructor(position) {
-          
+    
+        constructor(_position: Vector) {
+            this.position = _position;
+            this.velocity = new Vector(0, 0);
+            this.activity = "fly";
         }
-
+    
         draw(): void {
-           
+            // Implementiere die Logik zum Zeichnen des Paragliders an der aktuellen Position
+            console.log("Paraglider zeichnen an Position:", this.position);
         }
-
-        fly(_timesclie: number): void {
-        
-        }
-        walk(_timesclie: number): void {
-        
-        }
-
-        climb(_timesclie: number): void {
-        
-        }
-    }
+    
+        fly(_timeslice: number): void {
+            // Implementiere die Logik für den Flug des Paragliders
+    
+            // Berechne die Richtung zum Ziel
+            const target = new Vector(700, 590);
+            const direction = new Vector(target.x - this.position.x, target.y - this.position.y);
+    
+            // Normalisiere die Richtung
+            const length = Math.sqrt(direction.x * direction.x + direction.y * direction.y);
+            direction.scale(1 / length);
+    
+            // Aktualisiere die Geschwindigkeit basierend auf der Richtung
+            const speed = 100; // Beispielgeschwindigkeit
+            this.velocity.set(direction.x * speed, direction.y * speed);
+    
+            // Aktualisiere die Position basierend auf der Geschwindigkeit und der Zeit
+            this.position.add(new Vector(this.velocity.x * _timeslice, this.velocity.y * _timeslice));
+    
+            // Zeichne den Paraglider
+            this.draw();
+    
+            // Überprüfe, ob der Paraglider das Ziel erreicht hat
+            const distanceToTarget = Math.sqrt(
+                Math.pow(target.x - this.position.x, 2) + Math.pow(target.y - this.position.y, 2)
+            );
+            if (distanceToTarget < 5) {
+                this.activity = "walk";
+            }
+        } }
 
 
     export class HotAirBalloon {
@@ -39,79 +60,15 @@ namespace L09_2 {
            
         }
 
-        start(_timesclie: number): void {
+        start(_timeslice: number): void {
         
         }
-       fly(_timesclie: number): void {
+       fly(_timeslice: number): void {
         
         }
 
     }
 
-    }
+    } 
 
-
-export class Vector {
-    x: number;
-    y: number;
-
-    scale(factor: number): Vector {
-        this.x *= factor;
-        this.y *= factor;
-        return this;
-    }
-
-    add(addend: Vector): Vector {
-        this.x += addend.x;
-        this.y += addend.y;
-        return this;
-    }
-}
-
-export class Insect {
-    position: Vector;
-    velocity: Vector;
-    size: number;
-
-    constructor(position: Vector, size: number) {
-        this.position = position;
-        this.velocity = new Vector(); 
-        this.size = size;
-    }
-
-    draw(crc2: CanvasRenderingContext2D): void {
-        crc2.save();
-        crc2.translate(this.position.x, this.position.y);
-
-        // Körper des Insekts
-        crc2.beginPath();
-        crc2.arc(0, 0, this.size / 6, 0, 2 * Math.PI); // Kreis als Körper
-        crc2.fillStyle = "#fcca27"; // Farbe des Körpers
-        crc2.fill();
-        crc2.closePath();
-
-        // Kopf des Insekts
-        crc2.beginPath();
-        crc2.arc(0, -this.size / 6, this.size / 8, 0, 2 * Math.PI);
-        crc2.fillStyle = "black";
-        crc2.fill();
-        crc2.closePath();
-
-        // Flügel des Insekts
-        crc2.beginPath();
-        crc2.moveTo(this.size / 6, 0);
-        crc2.lineTo(this.size / 3, -this.size / 10);
-        crc2.lineTo(this.size / 6, -this.size / 10);
-        crc2.fillStyle = "#fcca27";
-        crc2.fill();
-        crc2.closePath();
-
-        crc2.restore();
-    }
-
-    fly(timeslice: number): void {
-        this.position.x += this.velocity.x * timeslice;
-        this.position.y += this.velocity.y * timeslice;
-    }
-}
     
