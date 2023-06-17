@@ -1,16 +1,13 @@
 namespace L010_2 {
   
-  export class Insect {
-    position: Vector;
-    velocity: Vector;
-    size: number;
+  export class Insect extends flyingObjects {
 
-    constructor(position: Vector, size: number) {
-      this.position = position;
+    constructor(_position: Vector) {
+      super(_position);
       this.velocity = new Vector(0, 0);
-      this.size = size;
-    }
-
+      this.size = new Vector(10, 40);
+  }
+  
     draw(): void {
       crc2.save();
       crc2.translate(this.position.x, this.position.y);
@@ -41,10 +38,10 @@ namespace L010_2 {
       crc2.restore();
     }
 
-    flyRandom(): void {
-      let directionX = Math.random() * 2 - 1; // Zufällige X-Richtung (-1 bis 1)
-      let directionY = Math.random() * 2 - 1; // Zufällige Y-Richtung (-1 bis 1)
-      let speed = Math.random() * 2 + 0.5; // Zufällige Fluggeschwindigkeit (0.5 bis 2.5)
+    doActivity(): void {
+      let directionX = Math.random() * 2 - 1; 
+      let directionY = Math.random() * 2 - 1; 
+      let speed = Math.random() * 2 + 0.5; 
 
       let stepX = directionX * speed;
       let stepY = directionY * speed;
@@ -52,7 +49,6 @@ namespace L010_2 {
       this.position.x += stepX;
       this.position.y += stepY;
 
-      // Zeichnen der neuen Position
       this.draw();
     }
   }

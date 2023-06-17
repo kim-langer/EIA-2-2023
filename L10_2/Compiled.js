@@ -1,83 +1,75 @@
-var L09_2;
-(function (L09_2) {
-    //ich weiß ist hier in der falschen Skript Datei, aber in der anderen konnte das Hauptprogramm trotz Export irgendwie nicht darauf zugreifen//
-    class Insect {
-        position;
-        velocity;
-        size;
-        constructor(position, size) {
-            this.position = position;
-            this.velocity = new L09_2.Vector(0, 0);
-            this.size = size;
+var L010_2;
+(function (L010_2) {
+    class Insect extends L010_2.flyingObjects {
+        constructor(_position) {
+            super(_position);
+            this.velocity = new L010_2.Vector(0, 0);
+            this.size = new L010_2.Vector(10, 40);
         }
         draw() {
-            L09_2.crc2.save();
-            L09_2.crc2.translate(this.position.x, this.position.y);
+            L010_2.crc2.save();
+            L010_2.crc2.translate(this.position.x, this.position.y);
             // Körper des Insekts
-            L09_2.crc2.beginPath();
-            L09_2.crc2.arc(0, 0, this.size / 6, 0, 2 * Math.PI); // Kreis als Körper
-            L09_2.crc2.fillStyle = "#fcca27"; // Farbe des Körpers
-            L09_2.crc2.fill();
-            L09_2.crc2.closePath();
+            L010_2.crc2.beginPath();
+            L010_2.crc2.arc(0, 0, this.size / 6, 0, 2 * Math.PI); // Kreis als Körper
+            L010_2.crc2.fillStyle = "#fcca27"; // Farbe des Körpers
+            L010_2.crc2.fill();
+            L010_2.crc2.closePath();
             // Kopf des Insekts
-            L09_2.crc2.beginPath();
-            L09_2.crc2.arc(0, -this.size / 6, this.size / 8, 0, 2 * Math.PI);
-            L09_2.crc2.fillStyle = "black";
-            L09_2.crc2.fill();
-            L09_2.crc2.closePath();
+            L010_2.crc2.beginPath();
+            L010_2.crc2.arc(0, -this.size / 6, this.size / 8, 0, 2 * Math.PI);
+            L010_2.crc2.fillStyle = "black";
+            L010_2.crc2.fill();
+            L010_2.crc2.closePath();
             // Flügel des Insekts
-            L09_2.crc2.beginPath();
-            L09_2.crc2.moveTo(this.size / 6, 0);
-            L09_2.crc2.lineTo(this.size / 3, -this.size / 10);
-            L09_2.crc2.lineTo(this.size / 6, -this.size / 10);
-            L09_2.crc2.fillStyle = "#fcca27";
-            L09_2.crc2.fill();
-            L09_2.crc2.closePath();
-            L09_2.crc2.restore();
+            L010_2.crc2.beginPath();
+            L010_2.crc2.moveTo(this.size / 6, 0);
+            L010_2.crc2.lineTo(this.size / 3, -this.size / 10);
+            L010_2.crc2.lineTo(this.size / 6, -this.size / 10);
+            L010_2.crc2.fillStyle = "#fcca27";
+            L010_2.crc2.fill();
+            L010_2.crc2.closePath();
+            L010_2.crc2.restore();
         }
-        flyRandom() {
-            let directionX = Math.random() * 2 - 1; // Zufällige X-Richtung (-1 bis 1)
-            let directionY = Math.random() * 2 - 1; // Zufällige Y-Richtung (-1 bis 1)
-            let speed = Math.random() * 2 + 0.5; // Zufällige Fluggeschwindigkeit (0.5 bis 2.5)
+        doActivity() {
+            let directionX = Math.random() * 2 - 1;
+            let directionY = Math.random() * 2 - 1;
+            let speed = Math.random() * 2 + 0.5;
             let stepX = directionX * speed;
             let stepY = directionY * speed;
             this.position.x += stepX;
             this.position.y += stepY;
-            // Zeichnen der neuen Position
             this.draw();
         }
     }
-    L09_2.Insect = Insect;
-})(L09_2 || (L09_2 = {}));
-/*Aufgabe: L09.2
+    L010_2.Insect = Insect;
+})(L010_2 || (L010_2 = {}));
+/*Aufgabe: L10.2
 Name: Kim Langer
 Matrikelnummer: 272232
-Quellen: Chat GPT, Stackoverflow
+Quellen: -
 
 Anmerkungen:
-- bei der Klasse vom Paraglider bin ich nicht mehr weitergekommen, ich verstehe auch die Fehlermeldungen nicht
-- die Insekten löschen trotz statischem HG immer noch den Hintergrund
+-
 */
-var L09_2;
-/*Aufgabe: L09.2
+var L010_2;
+/*Aufgabe: L10.2
 Name: Kim Langer
 Matrikelnummer: 272232
-Quellen: Chat GPT, Stackoverflow
+Quellen: -
 
 Anmerkungen:
-- bei der Klasse vom Paraglider bin ich nicht mehr weitergekommen, ich verstehe auch die Fehlermeldungen nicht
-- die Insekten löschen trotz statischem HG immer noch den Hintergrund
+-
 */
-(function (L09_2) {
+(function (L010_2) {
     window.addEventListener("load", handleLoad);
     let canvas;
     let backgroundCanvas;
     let backgroundContext;
-    let insects = [];
     let paraglider;
     function handleLoad(_event) {
         canvas = document.querySelector('canvas#front');
-        L09_2.crc2 = canvas.getContext('2d');
+        L010_2.crc2 = canvas.getContext('2d');
         // Hintergrund mit statischen Objekten auf ein anderes Canvas speichern
         backgroundCanvas = document.querySelector('canvas#back');
         backgroundCanvas.width = canvas.width;
@@ -86,27 +78,28 @@ Anmerkungen:
         drawBackground(backgroundContext);
         drawSun(backgroundContext, { x: 1100, y: 75 });
         drawClouds(backgroundContext, { x: 500, y: 100 }, { x: 200, y: 200 });
-        let mountainsHeight = L09_2.crc2.canvas.height * horizon;
+        let mountainsHeight = L010_2.crc2.canvas.height * horizon;
         drawMountains(backgroundContext, { x: 0, y: mountainsHeight }, 100, 230, "grey", "white");
         drawKiosk(backgroundContext, { x: 950, y: 560 }, { x: 100, y: 100 });
         drawLandingPlace(backgroundContext, { x: 700, y: 590 }, { x: 140, y: 100 });
         drawHotAirBalloon(backgroundContext, { x: 800, y: 280 }, 60, 50, 10);
         drawActivityMountain(backgroundContext);
-        drawParaglider(backgroundContext, { x: 50, y: 280 }, { x: 100, y: 180 });
-        // backgroundContext.drawImage(backgroundCanvas, 0, 0);
-        // Animationen starten
-        insects.push(new L09_2.Insect(new L09_2.Vector(400, 600), 30));
-        insects.push(new L09_2.Insect(new L09_2.Vector(500, 600), 30));
-        insects.push(new L09_2.Insect(new L09_2.Vector(600, 600), 30));
-        setInterval(draw, 100);
-        paraglider = new L09_2.Paraglider(new L09_2.Vector(30, 280));
-    }
-    function draw() {
-        L09_2.crc2.fillStyle = "#00000000";
-        L09_2.crc2.clearRect(0, 0, L09_2.crc2.canvas.width, L09_2.crc2.canvas.height);
-        for (let insect of insects)
-            insect.flyRandom();
-        paraglider.fly(1);
+        function draw() {
+            L010_2.crc2.fillStyle = "#00000000";
+            L010_2.crc2.clearRect(0, 0, L010_2.crc2.canvas.width, L010_2.crc2.canvas.height);
+            // Array für Superklasse
+            let objects = [];
+            // Erstellen eines Paragliders und Hinzufügen zum Array
+            let paragliderPosition = new L010_2.Vector(100, 100);
+            let paraglider = new L010_2.Paraglider(paragliderPosition);
+            objects.push(paraglider);
+            for (let people of objects) {
+                people.doActivity();
+            }
+            // dasselbe für die Insekten
+            for (let insect of objects)
+                insect.doActivity();
+        }
     }
     //Hintergrund definieren//
     let horizon = 0.62;
@@ -132,7 +125,6 @@ Anmerkungen:
         crc2.fill();
         crc2.restore();
     }
-    //Anmerkung: Wolken nicht im Bild sichtbar//
     function drawClouds(crc2, _position, _size) {
         let nParticles = 200;
         let radiusParticle = 23;
@@ -251,124 +243,9 @@ Anmerkungen:
         crc2.fillStyle = "#838383";
         crc2.fill();
     }
-    function drawParaglider(crc2, position, size) {
-        crc2.save();
-        crc2.translate(position.x, position.y);
-        // Körper
-        crc2.beginPath();
-        crc2.arc(0, 0, size.x / 4, 0, 2 * Math.PI); // Beispiel für einen Kreis als Körper
-        crc2.fillStyle = "brown"; // Farbe des Körpers
-        crc2.fill();
-        crc2.closePath();
-        // Kopf
-        crc2.beginPath();
-        crc2.arc(0, -size.x / 4, size.x / 8, 0, 2 * Math.PI); // Beispiel für einen Kreis als Kopf
-        crc2.fillStyle = "bisque"; // Farbe des Kopfes
-        crc2.fill();
-        crc2.closePath();
-        // Seile
-        const ropeLength = size.y / 3;
-        const ropeOffset = size.x / 5;
-        crc2.beginPath();
-        crc2.moveTo(-ropeOffset, 0);
-        crc2.lineTo(-ropeOffset * 1.2, -ropeLength);
-        crc2.strokeStyle = "black";
-        crc2.stroke();
-        crc2.closePath();
-        crc2.beginPath();
-        crc2.moveTo(ropeOffset, 0);
-        crc2.lineTo(ropeOffset * 1.2, -ropeLength);
-        crc2.strokeStyle = "black";
-        crc2.stroke();
-        crc2.closePath();
-        crc2.beginPath();
-        crc2.arc(0, -ropeLength, size.x / 4, Math.PI, 2 * Math.PI);
-        crc2.fillStyle = "lightblue";
-        crc2.fill();
-        crc2.closePath();
-        crc2.restore();
-    }
-})(L09_2 || (L09_2 = {}));
-var L09_2;
-(function (L09_2) {
-    class Paraglider {
-        position;
-        velocity;
-        activity;
-        size;
-        constructor(_position) {
-            this.position = _position;
-            this.velocity = new L09_2.Vector(0, 0);
-            this.activity = "fly";
-            this.size = new L09_2.Vector(50, 100);
-        }
-        draw() {
-            L09_2.crc2.save();
-            L09_2.crc2.translate(this.position.x, this.position.y);
-            // Körper
-            L09_2.crc2.beginPath();
-            L09_2.crc2.arc(0, 0, this.size.x / 4, 0, 2 * Math.PI);
-            L09_2.crc2.fillStyle = "brown";
-            L09_2.crc2.fill();
-            L09_2.crc2.closePath();
-            // Kopf
-            L09_2.crc2.beginPath();
-            L09_2.crc2.arc(0, -this.size.x / 4, this.size.x / 8, 0, 2 * Math.PI);
-            L09_2.crc2.fillStyle = "bisque";
-            L09_2.crc2.fill();
-            L09_2.crc2.closePath();
-            // Seile
-            const ropeLength = this.size.y / 3;
-            const ropeOffset = this.size.x / 5;
-            L09_2.crc2.beginPath();
-            L09_2.crc2.moveTo(-ropeOffset, 0);
-            L09_2.crc2.lineTo(-ropeOffset * 1.2, -ropeLength);
-            L09_2.crc2.strokeStyle = "black";
-            L09_2.crc2.stroke();
-            L09_2.crc2.closePath();
-            L09_2.crc2.beginPath();
-            L09_2.crc2.moveTo(ropeOffset, 0);
-            L09_2.crc2.lineTo(ropeOffset * 1.2, -ropeLength);
-            L09_2.crc2.strokeStyle = "black";
-            L09_2.crc2.stroke();
-            L09_2.crc2.closePath();
-            L09_2.crc2.beginPath();
-            L09_2.crc2.arc(0, -ropeLength, this.size.x / 4, Math.PI, 2 * Math.PI);
-            L09_2.crc2.fillStyle = "lightblue";
-            L09_2.crc2.fill();
-            L09_2.crc2.closePath();
-            L09_2.crc2.restore();
-        }
-        fly(_timeslice) {
-            let destination = new L09_2.Vector(700, 590);
-            let direction = new L09_2.Vector(destination.x - this.position.x, destination.y - this.position.y);
-            // Aktualisiere die Position basierend auf der Geschwindigkeit und der Zeit
-            this.position.add(new L09_2.Vector(this.velocity.x * _timeslice, this.velocity.y * _timeslice));
-            // Normalisiere die Richtung
-            const length = Math.sqrt(direction.x * direction.x + direction.y * direction.y);
-            direction.scale(1 / length);
-            // Aktualisiere die Geschwindigkeit basierend auf der Richtung
-            const speed = 100;
-            this.velocity.set(direction.x * speed, direction.y * speed);
-            // Zeichne den Paraglider
-            this.draw();
-            // Überprüft, ob die y-Position größer als die Bodenhöhe ist
-            const yGround = 590;
-            if (this.position.y > yGround) {
-                this.activity = "walk";
-            }
-        }
-        walk(_timeslice) {
-            //Paraglider läuft zum Berg
-        }
-        climb(_timeslice) {
-            //Paraglider klettert den Berg hoch 
-        }
-    }
-    L09_2.Paraglider = Paraglider;
-})(L09_2 || (L09_2 = {}));
-var L09_2;
-(function (L09_2) {
+})(L010_2 || (L010_2 = {}));
+var L010_2;
+(function (L010_2) {
     class Vector {
         x;
         y;
@@ -388,6 +265,174 @@ var L09_2;
             this.y += _addend.y;
         }
     }
-    L09_2.Vector = Vector;
-})(L09_2 || (L09_2 = {}));
+    L010_2.Vector = Vector;
+})(L010_2 || (L010_2 = {}));
+var L010_2;
+(function (L010_2) {
+    class flyingObjects {
+        position;
+        velocity;
+        size;
+        constructor(_position) {
+            this.position = _position;
+            this.velocity = new L010_2.Vector(0, 0);
+            this.size = new L010_2.Vector(50, 100);
+        }
+    }
+    L010_2.flyingObjects = flyingObjects;
+    draw();
+    void {
+    //Zeichnen (was kommt hier rein?)
+    };
+    doActivity();
+    void {
+    // Aktivität (was kommt hier rein?)
+    };
+})(L010_2 || (L010_2 = {}));
+var L010_2;
+(function (L010_2) {
+    class Paraglider extends L010_2.flyingObjects {
+        activity;
+        constructor(_position) {
+            super(_position);
+            this.velocity = new L010_2.Vector(0, 0);
+            this.size = new L010_2.Vector(50, 100);
+            this.activity = "fly";
+        }
+        draw() {
+            L010_2.crc2.save();
+            L010_2.crc2.translate(this.position.x, this.position.y);
+            // Körper
+            L010_2.crc2.beginPath();
+            L010_2.crc2.arc(0, 0, this.size.x / 4, 0, 2 * Math.PI);
+            L010_2.crc2.fillStyle = "brown";
+            L010_2.crc2.fill();
+            L010_2.crc2.closePath();
+            // Kopf
+            L010_2.crc2.beginPath();
+            L010_2.crc2.arc(0, -this.size.x / 4, this.size.x / 8, 0, 2 * Math.PI);
+            L010_2.crc2.fillStyle = "bisque";
+            L010_2.crc2.fill();
+            L010_2.crc2.closePath();
+            // Seile
+            const ropeLength = this.size.y / 3;
+            const ropeOffset = this.size.x / 5;
+            L010_2.crc2.beginPath();
+            L010_2.crc2.moveTo(-ropeOffset, 0);
+            L010_2.crc2.lineTo(-ropeOffset * 1.2, -ropeLength);
+            L010_2.crc2.strokeStyle = "black";
+            L010_2.crc2.stroke();
+            L010_2.crc2.closePath();
+            L010_2.crc2.beginPath();
+            L010_2.crc2.moveTo(ropeOffset, 0);
+            L010_2.crc2.lineTo(ropeOffset * 1.2, -ropeLength);
+            L010_2.crc2.strokeStyle = "black";
+            L010_2.crc2.stroke();
+            L010_2.crc2.closePath();
+            L010_2.crc2.beginPath();
+            L010_2.crc2.arc(0, -ropeLength, this.size.x / 4, Math.PI, 2 * Math.PI);
+            L010_2.crc2.fillStyle = "lightblue";
+            L010_2.crc2.fill();
+            L010_2.crc2.closePath();
+            L010_2.crc2.restore();
+        }
+        //Paraglider fliegt los
+        doActivity(_timeslice) {
+            const destination = new L010_2.Vector(700, 590);
+            const direction = new L010_2.Vector(destination.x - this.position.x, destination.y - this.position.y);
+            this.position.add(new L010_2.Vector(this.velocity.x * _timeslice, this.velocity.y * _timeslice));
+            const length = Math.sqrt(direction.x * direction.x + direction.y * direction.y);
+            direction.scale(1 / length);
+            const speed = 100;
+            this.velocity.set(direction.x * speed, direction.y * speed);
+            this.draw();
+            const yGround = 590;
+            if (this.position.y > yGround) {
+                this.activity = "walk";
+            }
+        }
+    }
+    L010_2.Paraglider = Paraglider;
+    class Walker extends Paraglider {
+        constructor(_position) {
+            super(_position);
+            this.velocity = new L010_2.Vector(0, 0);
+            this.size = new L010_2.Vector(50, 100);
+            this.activity = "walk";
+        }
+        draw() {
+            L010_2.crc2.save();
+            L010_2.crc2.translate(this.position.x, this.position.y);
+            // Körper
+            L010_2.crc2.beginPath();
+            L010_2.crc2.arc(0, 0, this.size.x / 4, 0, 2 * Math.PI);
+            L010_2.crc2.fillStyle = "brown";
+            L010_2.crc2.fill();
+            L010_2.crc2.closePath();
+            // Kopf
+            L010_2.crc2.beginPath();
+            L010_2.crc2.arc(0, -this.size.x / 4, this.size.x / 8, 0, 2 * Math.PI);
+            L010_2.crc2.fillStyle = "bisque";
+            L010_2.crc2.fill();
+            L010_2.crc2.closePath();
+            L010_2.crc2.restore();
+        }
+        doActivity(_timeslice) {
+            const destination = new L010_2.Vector(this.position.x, 100);
+            const direction = new L010_2.Vector(destination.x - this.position.x, destination.y - this.position.y);
+            this.position.add(new L010_2.Vector(this.velocity.x * _timeslice, this.velocity.y * _timeslice));
+            const length = Math.sqrt(direction.x * direction.x + direction.y * direction.y);
+            direction.scale(1 / length);
+            const speed = 50;
+            this.velocity.set(direction.x * speed, direction.y * speed);
+            this.draw();
+            // Überprüft, ob die y-Position kleiner als 100 ist
+            if (this.position.y < 100) {
+                this.activity = "climb";
+            }
+        }
+    }
+    L010_2.Walker = Walker;
+    class Climber extends Paraglider {
+        constructor(_position) {
+            super(_position);
+            this.velocity = new L010_2.Vector(0, 0);
+            this.size = new L010_2.Vector(50, 100);
+            this.activity = "climb";
+        }
+        draw() {
+            L010_2.crc2.save();
+            L010_2.crc2.translate(this.position.x, this.position.y);
+            // Körper
+            L010_2.crc2.beginPath();
+            L010_2.crc2.arc(0, 0, this.size.x / 4, 0, 2 * Math.PI);
+            L010_2.crc2.fillStyle = "brown";
+            L010_2.crc2.fill();
+            L010_2.crc2.closePath();
+            // Kopf
+            L010_2.crc2.beginPath();
+            L010_2.crc2.arc(0, -this.size.x / 4, this.size.x / 8, 0, 2 * Math.PI);
+            L010_2.crc2.fillStyle = "bisque";
+            L010_2.crc2.fill();
+            L010_2.crc2.closePath();
+            L010_2.crc2.restore();
+        }
+        doActivity(_timeslice) {
+            const destination = new L010_2.Vector(100, 200);
+            const direction = new L010_2.Vector(destination.x - this.position.x, destination.y - this.position.y);
+            this.position.add(new L010_2.Vector(this.velocity.x * _timeslice, this.velocity.y * _timeslice));
+            const length = Math.sqrt(direction.x * direction.x + direction.y * direction.y);
+            direction.scale(1 / length);
+            const speed = 30;
+            this.velocity.set(direction.x * speed, direction.y * speed);
+            this.draw();
+            // Berechne die Entfernung zum Ziel
+            const distance = Math.sqrt(Math.pow(destination.x - this.position.x, 2) + Math.pow(destination.y - this.position.y, 2));
+            if (distance < 10) {
+                this.velocity.set(0, 0); // stoppt den Climber
+            }
+        }
+    }
+    L010_2.Climber = Climber;
+})(L010_2 || (L010_2 = {}));
 //# sourceMappingURL=Compiled.js.map

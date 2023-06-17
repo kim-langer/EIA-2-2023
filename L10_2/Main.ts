@@ -1,7 +1,7 @@
 /*Aufgabe: L10.2
 Name: Kim Langer
 Matrikelnummer: 272232
-Quellen: Jirka
+Quellen: -
 
 Anmerkungen: 
 - 
@@ -15,7 +15,6 @@ namespace L010_2 {
   let canvas: HTMLCanvasElement;
   let backgroundCanvas: HTMLCanvasElement;
   let backgroundContext: CanvasRenderingContext2D;
-  let insects: Insect[] = [];
   let paraglider: Paraglider;
 
   interface Vector {
@@ -42,27 +41,34 @@ namespace L010_2 {
     drawLandingPlace(backgroundContext, { x: 700, y: 590 }, { x: 140, y: 100 });
     drawHotAirBalloon(backgroundContext, { x: 800, y: 280 }, 60, 50, 10);
     drawActivityMountain(backgroundContext);
-    drawParaglider(backgroundContext, { x: 50, y: 280 }, { x: 100, y: 180 });
-    // backgroundContext.drawImage(backgroundCanvas, 0, 0);
 
-    // Animationen starten
-    insects.push(new Insect(new Vector(400, 600), 30));
-    insects.push(new Insect(new Vector(500, 600), 30));
-    insects.push(new Insect(new Vector(600, 600), 30));
-    setInterval(draw, 100);
+    function draw() {
+      crc2.fillStyle = "#00000000";
+      crc2.clearRect(0, 0, crc2.canvas.width, crc2.canvas.height);
 
-    paraglider = new Paraglider(new Vector(30, 280));
+      
+      // Array für Superklasse
+      let objects: flyingObjects[] = [];
+
+      // Erstellen eines Paragliders und Hinzufügen zum Array
+      let paragliderPosition = new Vector(100, 100);
+      let paraglider = new Paraglider(paragliderPosition);
+      objects.push(paraglider);
+
+      for (let people of objects) {
+        people.doActivity();
+      }
+
+      // dasselbe für die Insekten
+
+      for (let insect of objects)
+        insect.doActivity();
+
+    }
+
   }
 
-  function draw() {
-    crc2.fillStyle = "#00000000";
-    crc2.clearRect(0, 0, crc2.canvas.width, crc2.canvas.height);
 
-    for (let insect of insects)
-      insect.flyRandom();
-
-    paraglider.fly(1);
-  }
 
   //Hintergrund definieren//
   let horizon: number = 0.62;
@@ -93,7 +99,6 @@ namespace L010_2 {
 
   }
 
-  //Anmerkung: Wolken nicht im Bild sichtbar//
   function drawClouds(crc2: CanvasRenderingContext2D, _position: Vector, _size: Vector): void {
     let nParticles: number = 200;
     let radiusParticle: number = 23;
@@ -243,52 +248,6 @@ namespace L010_2 {
     crc2.fill();
   }
 
-  function drawParaglider(crc2: CanvasRenderingContext2D, position: Vector, size: Vector): void {
-
-    crc2.save();
-    crc2.translate(position.x, position.y);
-
-    // Körper
-    crc2.beginPath();
-    crc2.arc(0, 0, size.x / 4, 0, 2 * Math.PI); // Beispiel für einen Kreis als Körper
-    crc2.fillStyle = "brown"; // Farbe des Körpers
-    crc2.fill();
-    crc2.closePath();
-
-    // Kopf
-    crc2.beginPath();
-    crc2.arc(0, -size.x / 4, size.x / 8, 0, 2 * Math.PI); // Beispiel für einen Kreis als Kopf
-    crc2.fillStyle = "bisque"; // Farbe des Kopfes
-    crc2.fill();
-    crc2.closePath();
-
-    // Seile
-    const ropeLength = size.y / 3;
-    const ropeOffset = size.x / 5;
-
-    crc2.beginPath();
-    crc2.moveTo(-ropeOffset, 0);
-    crc2.lineTo(-ropeOffset * 1.2, -ropeLength);
-    crc2.strokeStyle = "black";
-    crc2.stroke();
-    crc2.closePath();
-
-    crc2.beginPath();
-    crc2.moveTo(ropeOffset, 0);
-    crc2.lineTo(ropeOffset * 1.2, -ropeLength);
-    crc2.strokeStyle = "black";
-    crc2.stroke();
-    crc2.closePath();
-
-
-    crc2.beginPath();
-    crc2.arc(0, -ropeLength, size.x / 4, Math.PI, 2 * Math.PI);
-    crc2.fillStyle = "lightblue";
-    crc2.fill();
-    crc2.closePath();
-
-    crc2.restore();
-  }
 }
 
 
