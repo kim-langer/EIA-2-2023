@@ -3,5 +3,6 @@
     "target": "ESNEXT",
     "module": "commonjs",
     "sourceMap": true
-  }
+  },
+  "exclude": ["./L10_2"],
 }

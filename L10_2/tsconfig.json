@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "target": "ESNEXT",
+    "module": "system",
+    "sourceMap": true,
+    "outFile": "Compiled.js",
+    "declaration": false
+  }
+}
