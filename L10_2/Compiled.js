@@ -66,7 +66,6 @@ Anmerkungen:
     let canvas;
     let backgroundCanvas;
     let backgroundContext;
-    let paraglider;
     function handleLoad(_event) {
         canvas = document.querySelector('canvas#front');
         L010_2.crc2 = canvas.getContext('2d');
@@ -87,19 +86,20 @@ Anmerkungen:
         function draw() {
             L010_2.crc2.fillStyle = "#00000000";
             L010_2.crc2.clearRect(0, 0, L010_2.crc2.canvas.width, L010_2.crc2.canvas.height);
-            // Array für Superklasse
-            let objects = [];
-            // Erstellen eines Paragliders und Hinzufügen zum Array
-            let paragliderPosition = new L010_2.Vector(100, 100);
-            let paraglider = new L010_2.Paraglider(paragliderPosition);
-            objects.push(paraglider);
-            for (let people of objects) {
-                people.doActivity();
-            }
-            // dasselbe für die Insekten
-            for (let insect of objects)
-                insect.doActivity();
         }
+        draw();
+        // Array für Superklasse
+        let objects = [];
+        // Erstellen eines Paragliders und Hinzufügen zum Array
+        let paragliderPosition = new L010_2.Vector(100, 100);
+        let paraglider = new L010_2.Paraglider(paragliderPosition);
+        objects.push(paraglider);
+        for (let people of objects) {
+            people.doActivity();
+        }
+        // dasselbe für die Insekten
+        for (let insect of objects)
+            insect.doActivity();
     }
     //Hintergrund definieren//
     let horizon = 0.62;

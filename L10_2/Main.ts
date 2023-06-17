@@ -15,7 +15,6 @@ namespace L010_2 {
   let canvas: HTMLCanvasElement;
   let backgroundCanvas: HTMLCanvasElement;
   let backgroundContext: CanvasRenderingContext2D;
-  let paraglider: Paraglider;
 
   interface Vector {
     x: number;
@@ -45,26 +44,24 @@ namespace L010_2 {
     function draw() {
       crc2.fillStyle = "#00000000";
       crc2.clearRect(0, 0, crc2.canvas.width, crc2.canvas.height);
-
-      
-      // Array für Superklasse
-      let objects: flyingObjects[] = [];
-
-      // Erstellen eines Paragliders und Hinzufügen zum Array
-      let paragliderPosition = new Vector(100, 100);
-      let paraglider = new Paraglider(paragliderPosition);
-      objects.push(paraglider);
-
-      for (let people of objects) {
-        people.doActivity();
-      }
-
-      // dasselbe für die Insekten
-
-      for (let insect of objects)
-        insect.doActivity();
-
     }
+    draw();
+
+    // Array für Superklasse
+    let objects: flyingObjects[] = [];
+
+    // Erstellen eines Paragliders und Hinzufügen zum Array
+    let paragliderPosition = new Vector(100, 100);
+    let paraglider = new Paraglider(paragliderPosition);
+    objects.push(paraglider);
+
+    for (let people of objects) {
+      people.doActivity();
+    }
+
+    // dasselbe für die Insekten
+    for (let insect of objects)
+      insect.doActivity();
 
   }
 
