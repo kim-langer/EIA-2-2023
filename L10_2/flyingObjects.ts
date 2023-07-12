@@ -1,6 +1,6 @@
 
 namespace L010_2 {
-export class flyingObjects {
+export abstract class flyingObjects {
     position: Vector;
     velocity: Vector;
     size: Vector;
@@ -11,17 +11,18 @@ export class flyingObjects {
       this.size = new Vector(50, 100);
     }
 
-    }
+  
 
     draw(): void {
-   //Zeichnen (was kommt hier rein?)
-      }
+   //Zeichnen 
+      };
 
 
     doActivity(): void {
-        // Aktivität (was kommt hier rein?)
-      }
+        // Aktivität
+      };
 
 
+}
 }
 
